@@ -502,7 +502,7 @@
                 </div>
 
                 <!-- Cat-Eared Stitched Speech Bubble Stats Frame (Click to open Review Tab) -->
-                <div onclick="switchBottomTab('review')" title="กดเพื่อดูรีวิวลูกค้าทั้งหมด"
+                <div onclick="switchBottomTab('review')" title="กดเพื่อดูหรือเขียนรีวิวให้ร้าน"
                      class="mt-7 pt-2 cursor-pointer group">
                     <div class="cat-stitched-frame p-2 group-hover:border-[#EA6A20] transition">
                         <div class="absolute -top-3.5 left-5 px-3 py-0.5 rounded-full bg-[#4A2511] text-[#FFFBF5] text-[10px] font-bold tracking-widest uppercase border border-[#FF9B54]">
@@ -517,14 +517,14 @@
 
                         <div class="cat-stitched-inner py-4 px-3 grid grid-cols-2 divide-x divide-[#DFC0A2]">
                             <div class="text-center px-2">
-                                <div id="statTotalReviews" class="font-en-magic text-3xl text-[#3E200D]">4</div>
+                                <div id="statTotalReviews" class="font-en-magic text-3xl text-[#3E200D]">0</div>
                                 <div class="text-[10px] font-bold uppercase tracking-wider text-[#EA6A20]">Total Reviews</div>
                                 <div class="font-th-sweet text-xs text-[#6E4730]">ความคิดเห็นทั้งหมด</div>
                             </div>
                             <div class="text-center px-2">
                                 <div class="flex items-center justify-center gap-1">
                                     <i class="fa-solid fa-paw text-[#EA6A20] text-lg"></i>
-                                    <span id="statAvgRating" class="font-en-magic text-3xl text-[#3E200D]">4.8</span>
+                                    <span id="statAvgRating" class="font-en-magic text-3xl text-[#3E200D]">5.0</span>
                                 </div>
                                 <div class="text-[10px] font-bold uppercase tracking-wider text-[#EA6A20]">Store Rating</div>
                                 <div class="font-th-sweet text-xs text-[#6E4730]">คะแนนร้าน</div>
@@ -785,7 +785,7 @@
                         <p class="font-th-sweet text-xs text-[#7C4D30]">ช่องดูรีวิวความประทับใจจากลูกค้าจริง และส่งรีวิวให้ร้าน meoworange</p>
                     </div>
                     <span id="reviewTabAvgBadge" class="px-3 py-1 rounded-full bg-[#FFE6CF] border border-[#FFBE8F] font-th-sweet text-xs font-bold text-[#C85614]">
-                        <i class="fa-solid fa-paw mr-1"></i>คะแนนเฉลี่ย 4.8 / 5
+                        <i class="fa-solid fa-paw mr-1"></i>พร้อมรับรีวิวจากลูกค้า
                     </span>
                 </div>
 
@@ -794,7 +794,7 @@
                     <button type="button" id="revModeBrowseBtn" onclick="switchReviewMode('browse')"
                             class="py-2.5 px-3 rounded-xl bg-[#4A2511] text-[#FFFBF5] font-th-sweet text-xs sm:text-sm font-bold shadow transition flex items-center justify-center gap-1.5">
                         <i class="fa-solid fa-eye text-[#FF9B54]"></i>
-                        <span>กดดูรีวิวทั้งหมด (<span id="reviewCountChip">4</span>)</span>
+                        <span>กดดูรีวิวทั้งหมด (<span id="reviewCountChip">0</span>)</span>
                     </button>
                     <button type="button" id="revModeWriteBtn" onclick="switchReviewMode('write')"
                             class="py-2.5 px-3 rounded-xl text-[#4A2511] hover:bg-[#FFFBF5]/70 font-th-sweet text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1.5">
@@ -1531,7 +1531,7 @@
     </script>
 
     <!-- =========================================================
-         JAVASCRIPT APPLICATION LOGIC (COMPLETE & SELF-CONTAINED)
+         JAVASCRIPT APPLICATION LOGIC (PRODUCTION READY - NO DEMO REVIEWS)
          ========================================================= -->
     <script>
         // =========================================================
@@ -1540,7 +1540,7 @@
         const STORE_BACKEND_CONFIG = {
             storeName: 'meoworange',
             logoUrl: 'bae.jpg',
-            adminUsername: 'meowmartin',
+            adminUsername: 't',
             adminPassword: 'kmartinlnwza07',
             botWelcomeMessage: 'สวัสดีค่ะ ลูกค้าติดปัญหาหรือต้องการปรึกษาแม่ค้าจะตอบภายใน 10 นาที กรุณารอสักครู่นะคะ 🩶'
         };
@@ -1598,6 +1598,7 @@
             }, 350);
         }
         window.dismissPawLoader = dismissPawLoader;
+
         // =========================================================
         // 2. LOCAL STORAGE HELPERS & 5-SONG VINYL PLAYER
         // =========================================================
@@ -1625,10 +1626,10 @@
                 meoworange_playlist_v1: JSON.stringify(PLAYLIST_TRACKS),
                 meoworange_store_settings_v1: JSON.stringify(storeSettings),
                 meoworange_payment_config_v1: JSON.stringify(paymentConfig),
-                meoworange_gmail_catalog_v2: JSON.stringify(GMAIL_CATALOG),
-                meoworange_game_ids_v1: JSON.stringify(GAME_IDS_CATALOG),
-                meoworange_ready_accounts_v1: JSON.stringify(READY_ACCOUNTS_CATALOG),
-                meoworange_princess_reviews_v1: JSON.stringify(reviewsData),
+                meoworange_gmail_catalog_prod_v1: JSON.stringify(GMAIL_CATALOG),
+                meoworange_game_ids_prod_v1: JSON.stringify(GAME_IDS_CATALOG),
+                meoworange_ready_accounts_prod_v1: JSON.stringify(READY_ACCOUNTS_CATALOG),
+                meoworange_reviews_prod_v1: JSON.stringify(reviewsData),
                 meoworange_registered_users_v1: JSON.stringify(registeredUsers),
                 meoworange_orders_v1: JSON.stringify(userOrders),
                 meoworange_topup_requests_v1: JSON.stringify(topupRequests),
@@ -1655,17 +1656,20 @@
                 paymentConfig = safeParse(data.meoworange_payment_config_v1, paymentConfig);
                 renderPaymentQrDisplay();
             }
-            if (data.meoworange_gmail_catalog_v2) {
-                GMAIL_CATALOG = safeParse(data.meoworange_gmail_catalog_v2, GMAIL_CATALOG);
+            if (data.meoworange_gmail_catalog_prod_v1 !== undefined) {
+                GMAIL_CATALOG = safeParse(data.meoworange_gmail_catalog_prod_v1, GMAIL_CATALOG);
+                saveLocalOnly('meoworange_gmail_catalog_prod_v1', GMAIL_CATALOG);
             }
-            if (data.meoworange_game_ids_v1) {
-                GAME_IDS_CATALOG = safeParse(data.meoworange_game_ids_v1, GAME_IDS_CATALOG);
+            if (data.meoworange_game_ids_prod_v1 !== undefined) {
+                GAME_IDS_CATALOG = safeParse(data.meoworange_game_ids_prod_v1, GAME_IDS_CATALOG);
+                saveLocalOnly('meoworange_game_ids_prod_v1', GAME_IDS_CATALOG);
             }
-            if (data.meoworange_ready_accounts_v1) {
-                READY_ACCOUNTS_CATALOG = safeParse(data.meoworange_ready_accounts_v1, READY_ACCOUNTS_CATALOG);
+            if (data.meoworange_ready_accounts_prod_v1 !== undefined) {
+                READY_ACCOUNTS_CATALOG = safeParse(data.meoworange_ready_accounts_prod_v1, READY_ACCOUNTS_CATALOG);
+                saveLocalOnly('meoworange_ready_accounts_prod_v1', READY_ACCOUNTS_CATALOG);
             }
-            if (data.meoworange_princess_reviews_v1) {
-                reviewsData = safeParse(data.meoworange_princess_reviews_v1, reviewsData);
+            if (data.meoworange_reviews_prod_v1) {
+                reviewsData = safeParse(data.meoworange_reviews_prod_v1, reviewsData);
                 renderPrincessReviews();
             }
             if (data.meoworange_registered_users_v1) {
@@ -1693,6 +1697,10 @@
                 renderProfileTab();
             }
         };
+
+        function saveLocalOnly(key, value) {
+            try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
+        }
 
         const DEFAULT_PLAYLIST_TRACKS = [
             {
@@ -1966,216 +1974,12 @@
         }
 
         // =========================================================
-        // 3. INITIAL STORE DATA (GMAIL, ID GAMES, ROBUX, ACCOUNTS)
+        // 3. PRODUCTION STORE DATA (NO DEMO ITEMS - READY FOR ADMIN INPUT)
         // =========================================================
-        const INITIAL_REVIEWS = [
-            {
-                id: 'rev-init-1',
-                sender: 'Mochi',
-                date: '10 พ.ย. 2569',
-                paws: 5,
-                message: 'ร้านน่ารักมาก เลือกชื่อเมลเองได้ จ่ายเสร็จเห็นพาสเวิร์ดเลย ส่งไวสุดๆ ประทับใจค่ะ!',
-                photo: ''
-            },
-            {
-                id: 'rev-init-2',
-                sender: 'Yuki',
-                date: '10 พ.ย. 2569',
-                paws: 5,
-                message: 'เติมเครดิตง่าย สั่งซื้อไอดีเกมกับเติมโรบัคเรท 3 ในเว็บได้เลย สะดวกมากครับ',
-                photo: ''
-            },
-            {
-                id: 'rev-init-3',
-                sender: 'Nong Som',
-                date: '12 พ.ย. 2569',
-                paws: 5,
-                message: 'สั่งทำบอทอนิเมะ 200 ฟอล เหมียวส้มแต่งแอคคุมโทนสวยมากค่ะ แอดมินตอบไวด้วย',
-                photo: ''
-            },
-            {
-                id: 'rev-init-4',
-                sender: 'Creammy',
-                date: '14 พ.ย. 2569',
-                paws: 4,
-                message: 'เมลนิวเองคุณภาพดีมากค่ะ ราคาเป็นมิตรสุดๆ',
-                photo: ''
-            }
-        ];
-
-        const INITIAL_GMAIL_CATALOG = [
-            {
-                id: 'gm-w1',
-                category: 'warranty',
-                badgeEn: 'With Warranty',
-                badgeTh: 'นิวเองแบบประกัน',
-                titleEn: 'Royal Fresh Gmail (7-Day Warranty)',
-                titleTh: 'จีเมลนิวเอง ประกันเคลม 7 วัน',
-                price: 15,
-                descTh: 'เลือกชื่อเมลที่ชอบด้านล่างแล้วกดเพิ่มลงตะกร้า เมื่อชำระเงินเสร็จจะได้รับพาสเวิร์ดทันที (ประกัน 7 วัน)',
-                accounts: [
-                    { email: 'peach.princess01@gmail.com', password: 'PeachMail#7710', recovery: 'rec.peach01@gmail.com', sold: false },
-                    { email: 'sweet.cream02@gmail.com', password: 'CreamMail#8821', recovery: 'rec.cream02@gmail.com', sold: false },
-                    { email: 'honey.cat03@gmail.com', password: 'HoneyMail#9932', recovery: 'rec.honey03@gmail.com', sold: false },
-                    { email: 'caramel.latte04@gmail.com', password: 'LatteMail#4415', recovery: 'rec.latte04@gmail.com', sold: false }
-                ]
-            },
-            {
-                id: 'gm-vip-1pc',
-                category: 'warranty',
-                badgeEn: 'Limited 1 PC',
-                badgeTh: 'เมลชื่อสวยลิมิเต็ด (มี 1 ชิ้น)',
-                titleEn: 'Limited VIP Name Gmail (30-Day Warranty)',
-                titleTh: 'จีเมลชื่อสวยคัดพิเศษ (มี 1 ชิ้น • หมดแล้วหมดเลย)',
-                price: 29,
-                descTh: 'เมลชื่อสวยสั้นจำง่าย มีเพียง 1 ชิ้นในสต็อก เมื่อซื้อแล้วสินค้าจะขึ้นว่า "หมด" ทันทีค่ะ',
-                accounts: [
-                    { email: 'meoworange.vip@gmail.com', password: 'RoyalVip#2026', recovery: 'rec.vip2026@gmail.com', sold: false }
-                ]
-            },
-            {
-                id: 'gm-nw1',
-                category: 'no-warranty',
-                badgeEn: 'No Warranty',
-                badgeTh: 'นิวเองแบบไม่ประกัน',
-                titleEn: 'Sweet Budget Gmail (No Warranty)',
-                titleTh: 'จีเมลนิวเอง ราคาประหยัด (ไม่ประกัน)',
-                price: 8,
-                descTh: 'สมัครมือเองใหม่สดทุกวัน เช็กสถานะก่อนลงสต็อกทุกเมล เลือกชื่อเมลด้านล่างได้เลยค่ะ',
-                accounts: [
-                    { email: 'mocha.fresh11@gmail.com', password: 'Mocha#1122', recovery: 'rec.mocha11@gmail.com', sold: false },
-                    { email: 'butter.cookie12@gmail.com', password: 'Cookie#3344', recovery: 'rec.cookie12@gmail.com', sold: false },
-                    { email: 'choco.milk13@gmail.com', password: 'Choco#5566', recovery: 'rec.choco13@gmail.com', sold: false }
-                ]
-            },
-            {
-                id: 'gm-nw2',
-                category: 'no-warranty',
-                badgeEn: 'Special 1 PC',
-                badgeTh: 'เมลราคาพิเศษ (มี 1 ชิ้น)',
-                titleEn: 'Flash Sale Fresh Gmail (1 PC)',
-                titleTh: 'จีเมลแฟลชเซลราคาพิเศษ (มี 1 ชิ้น)',
-                price: 6,
-                descTh: 'ราคาพิเศษ 6 บาท มีเพียง 1 บัญชีเท่านั้น จ่ายเงินเสร็จรับเมลกับพาสเวิร์ดทันที',
-                accounts: [
-                    { email: 'orange.flash99@gmail.com', password: 'FlashSale#9900', recovery: 'rec.flash99@gmail.com', sold: false }
-                ]
-            }
-        ];
-
-        const INITIAL_GAME_IDS = [
-            {
-                id: 'gid-rov-1',
-                game: 'rov',
-                gameLabel: 'RoV',
-                title: 'ไอดี RoV แรงค์ Commander สกินแรร์ 48 สกิน',
-                price: 290,
-                badge: 'พร้อมโอนข้อมูล • สะอาด',
-                details: 'ฮีโร่ 92 ตัว | สกิน 48 สกิน (มีสกินระดับ Limited & Evo) | รูนเลเวล 90 ครบทุกสาย | ผูก Garena เปลี่ยนรหัสและเบอร์ได้ทันที',
-                images: [
-                    'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop'
-                ],
-                credentials: 'Garena ID: meow.rov88 | Pass: RovKing#8899 | เมลผูก: clean.rov88@gmail.com',
-                sold: false
-            },
-            {
-                id: 'gid-rov-2',
-                game: 'rov',
-                gameLabel: 'RoV',
-                title: 'ไอดี RoV สายเมจ-แครี่ สกินอนิเมะสุดคิ้วท์',
-                price: 185,
-                badge: 'คุ้มมาก • พร้อมเล่น',
-                details: 'ฮีโร่ 75 ตัว | สกิน 31 สกิน | วินเรทสวย 64% | ประวัติขาวสะอาด ไม่เคยโดนแบน',
-                images: [
-                    'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=600&auto=format&fit=crop'
-                ],
-                credentials: 'Garena ID: peach.rov19 | Pass: PeachRov#2026',
-                sold: false
-            },
-            {
-                id: 'gid-idv-1',
-                game: 'identityv',
-                gameLabel: 'Identity V',
-                title: 'ไอดี Identity V เซิร์ฟ Asia สกินทอง S + ม่วง A เพียบ',
-                price: 450,
-                badge: 'เซิร์ฟ Asia • เมลสะอาด',
-                details: 'สกินทอง S-Tier 3 ชุด | สกินม่วง A-Tier 22 ชุด | เครื่องประดับทอง 4 ชิ้น | น้องสัตว์เลี้ยงครบ | ย้ายรหัสผูกเมลใหม่ได้ 100%',
-                images: [
-                    'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop'
-                ],
-                credentials: 'IDV Login Mail: manor.queen01@gmail.com | Pass: IdvManor#7741',
-                sold: false
-            },
-            {
-                id: 'gid-idv-2',
-                game: 'identityv',
-                gameLabel: 'Identity V',
-                title: 'ไอดี Identity V สายจู๊ค ตัวละครครบ + สกินลิมิเต็ด',
-                price: 240,
-                badge: 'พร้อมโอนเมล',
-                details: 'ปลดล็อกเซอร์ไวเวอร์และฮันเตอร์ยอดฮิตครบ | สกินม่วง A 14 ชุด | เศษม่วงเหลืออีก 3,800+',
-                images: [
-                    'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=600&auto=format&fit=crop'
-                ],
-                credentials: 'IDV Login Mail: lucky.cipher02@gmail.com | Pass: Cipher#5520',
-                sold: false
-            },
-            {
-                id: 'gid-genshin-1',
-                game: 'genshin',
-                gameLabel: 'Genshin Impact',
-                title: 'ไอดี Genshin Impact AR56 ตัวละคร 5 ดาว 9 ตัว + อาวุธประจำตัว',
-                price: 390,
-                badge: 'Asia Server • เปลี่ยนเมลได้',
-                details: 'AR 56 Asia | Furina, Neuvillette, Raiden Shogun, Nahida, Kazuha + อาวุธ 5 ดาว 4 ชิ้น | สำรวจแผนที่ 85%+ | ไม่ติดเบอร์ ไม่ติดโซเชียล',
-                images: [
-                    'https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=600&auto=format&fit=crop'
-                ],
-                credentials: 'HoYoverse Mail: teyvat.star01@gmail.com | Pass: Genshin#9920',
-                sold: false
-            },
-            {
-                id: 'gid-roblox-1',
-                game: 'roblox',
-                gameLabel: 'Roblox',
-                title: 'ไอดี Roblox แต่งตัวสายคิ้วท์ + เกมพาสแมพดังครบ',
-                price: 220,
-                badge: 'เมลขาวสะอาด • เปลี่ยนรหัสได้',
-                details: 'ของแต่งตัวแนวเจ้าหญิง/อนิเมะ 35+ ชิ้น | มี Robux ติดตัว 120 R$ | ปลดล็อกเกมพาส Blox Fruits & Dress To Impress | ไม่ติด PIN',
-                images: [
-                    'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?q=80&w=600&auto=format&fit=crop'
-                ],
-                credentials: 'Roblox User: PrincessMochi_TH | Pass: RbxCute#4410 | Mail: rbx.mochi@gmail.com',
-                sold: false
-            }
-        ];
-
-        const INITIAL_READY_ACCOUNTS = [
-            {
-                id: 'acc-ready-1',
-                title: 'แอคเคาท์เปล่าแต่งคุมโทนมินิมอลครีม-น้ำตาล (พร้อมใช้)',
-                price: 59,
-                badge: 'แต่งแอคแล้ว • พร้อมส่ง',
-                details: 'เปลี่ยนดิสเพลย์ เฮดเดอร์ และไบโอคุมโทนมินิมอลเรียบร้อยแล้ว | แอคสะอาดไม่เคยใช้งานมาก่อน | เปลี่ยนรหัสผ่านและเมลได้ทันที',
-                images: [
-                    'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop'
-                ],
-                credentials: 'Account ID: @cream.aesthetic01 | Pass: Aesthetic#1122 | Mail: cream.acc01@gmail.com',
-                sold: false
-            },
-            {
-                id: 'acc-ready-2',
-                title: 'แอคเคาท์เปล่าแต่งแนวอนิเมะพาสเทล (ดิส+เฮด+ไบโอครบ)',
-                price: 65,
-                badge: 'โทนอนิเมะ • สวยพร้อมใช้',
-                details: 'ตกแต่งโปรไฟล์แนวอนิเมะโทนส้มพีช-ครีม พร้อมสัญลักษณ์ตกแต่งไบโอน่ารัก ๆ | ใช้งานได้ทันทีหลังชำระเงิน',
-                images: [
-                    'https://images.unsplash.com/photo-1580477667995-2b94f01c9516?q=80&w=600&auto=format&fit=crop'
-                ],
-                credentials: 'Account ID: @peach.anime99 | Pass: AnimePeach#3344 | Mail: peach.acc99@gmail.com',
-                sold: false
-            }
-        ];
+        const INITIAL_REVIEWS = [];
+        const INITIAL_GMAIL_CATALOG = [];
+        const INITIAL_GAME_IDS = [];
+        const INITIAL_READY_ACCOUNTS = [];
 
         const CUSTOM_BOT_FOLLOWER_TIERS = [
             { followers: 100, price: 45 },
@@ -2225,10 +2029,10 @@
         saveStorage('meoworange_store_settings_v1', storeSettings);
 
         let paymentConfig = loadStorage('meoworange_payment_config_v1', INITIAL_PAYMENT_CONFIG);
-        let GMAIL_CATALOG = loadStorage('meoworange_gmail_catalog_v2', INITIAL_GMAIL_CATALOG);
-        let GAME_IDS_CATALOG = loadStorage('meoworange_game_ids_v1', INITIAL_GAME_IDS);
-        let READY_ACCOUNTS_CATALOG = loadStorage('meoworange_ready_accounts_v1', INITIAL_READY_ACCOUNTS);
-        let reviewsData = loadStorage('meoworange_princess_reviews_v1', INITIAL_REVIEWS);
+        let GMAIL_CATALOG = loadStorage('meoworange_gmail_catalog_prod_v1', INITIAL_GMAIL_CATALOG);
+        let GAME_IDS_CATALOG = loadStorage('meoworange_game_ids_prod_v1', INITIAL_GAME_IDS);
+        let READY_ACCOUNTS_CATALOG = loadStorage('meoworange_ready_accounts_prod_v1', INITIAL_READY_ACCOUNTS);
+        let reviewsData = loadStorage('meoworange_reviews_prod_v1', INITIAL_REVIEWS);
         let registeredUsers = loadStorage('meoworange_registered_users_v1', []);
         let currentUser = loadStorage('meoworange_active_user_v1', null);
         let cartItems = loadStorage('meoworange_cart_v2', []);
@@ -2419,7 +2223,7 @@
                 photo: attachedReviewPhoto
             });
 
-            saveStorage('meoworange_princess_reviews_v1', reviewsData);
+            saveStorage('meoworange_reviews_prod_v1', reviewsData);
 
             msgInput.value = '';
             selectPawRating(0);
@@ -2444,7 +2248,11 @@
             if (totalEl) totalEl.textContent = count;
             if (avgEl) avgEl.textContent = avg;
             if (chipEl) chipEl.textContent = count;
-            if (badgeEl) badgeEl.innerHTML = `<i class="fa-solid fa-paw mr-1"></i>คะแนนเฉลี่ย ${avg} / 5`;
+            if (badgeEl) {
+                badgeEl.innerHTML = count > 0
+                    ? `<i class="fa-solid fa-paw mr-1"></i>คะแนนเฉลี่ย ${avg} / 5`
+                    : `<i class="fa-solid fa-paw mr-1"></i>พร้อมรับรีวิวจากลูกค้า`;
+            }
 
             if (!grid) return;
 
@@ -2456,9 +2264,26 @@
             }
 
             if (filtered.length === 0) {
+                const isFiltered = count > 0 && currentReviewFilter !== 'all';
                 grid.innerHTML = `
-                    <div class="sm:col-span-2 text-center py-8 px-4 rounded-3xl bg-[#F7EBDD] border border-[#DFC0A2]">
-                        <p class="font-th-sweet text-sm text-[#7C4D30]">ยังไม่มีรีวิวในตัวกรองนี้ค่ะ</p>
+                    <div class="sm:col-span-2 text-center py-9 px-4 rounded-3xl bg-[#F7EBDD] border border-[#DFC0A2] space-y-2.5">
+                        <div class="w-11 h-11 rounded-full bg-[#FFE6CF] border border-[#DFC0A2] flex items-center justify-center mx-auto text-[#EA6A20]">
+                            <i class="fa-solid fa-paw"></i>
+                        </div>
+                        <p class="font-th-sweet text-sm font-bold text-[#3E200D]">
+                            ${isFiltered ? 'ยังไม่มีรีวิวในตัวกรองนี้ค่ะ' : 'ยังไม่มีรีวิวในขณะนี้'}
+                        </p>
+                        <p class="font-th-sweet text-xs text-[#7C4D30]">
+                            ${isFiltered ? 'ลองเลือกดูรีวิวทั้งหมดหรือเขียนรีวิวใหม่ให้ร้านได้เลยค่ะ' : 'มาร่วมเป็นลูกค้ารีวิวคนแรกให้ร้าน meoworange กันนะคะ ♡'}
+                        </p>
+                        ${!isFiltered ? `
+                            <div class="pt-1">
+                                <button type="button" onclick="switchReviewMode('write')"
+                                        class="px-4 py-2 rounded-full bg-[#4A2511] hover:bg-[#EA6A20] text-white font-th-sweet text-xs font-bold shadow transition">
+                                    <i class="fa-solid fa-pen-nib mr-1"></i>เขียนรีวิวให้ร้าน
+                                </button>
+                            </div>
+                        ` : ''}
                     </div>
                 `;
                 return;
@@ -2694,7 +2519,13 @@
                     ? GAME_IDS_CATALOG
                     : GAME_IDS_CATALOG.filter(g => g.game === currentGameSubFilter);
 
-                const gameCardsHtml = filteredGames.map(gid => {
+                const gameCardsHtml = filteredGames.length === 0
+                    ? `
+                        <div class="sm:col-span-2 text-center py-8 px-4 rounded-3xl bg-[#F7EBDD] border border-[#DFC0A2]">
+                            <p class="font-th-sweet text-sm text-[#7C4D30]">ยังไม่มีรายการไอดีเกมในหมวดนี้ค่ะ</p>
+                        </div>
+                    `
+                    : filteredGames.map(gid => {
                     const isSold = Boolean(gid.sold);
                     const inCart = cartItems.some(c => c.type === 'idgame' && c.itemId === gid.id);
                     const mainImg = (gid.images && gid.images[0]) || 'https://placehold.co/600x360/FFE6CF/3E200D?text=Game+ID';
@@ -2754,7 +2585,7 @@
             }
 
             // ---------------------------------------------------------
-            // CHANNEL 3: ROBUX (ส่งโรบัคเรท 3 เช่น 25 โรหาร 3 = 8 บาท, 100 โร = 33 บาท, 500 โร = 166 บาท)
+            // CHANNEL 3: ROBUX (ส่งโรบัคเรท 3)
             // ---------------------------------------------------------
             if (currentProductChannel === 'robux') {
                 const bahtPrice = Math.max(1, Math.floor(selectedRobuxAmount / 3));
@@ -2776,6 +2607,9 @@
                             <div>
                                 <span class="px-3 py-0.5 rounded-full bg-[#EA6A20] text-white font-th-sweet text-xs font-bold">เรท 3 (Robux ÷ 3)</span>
                                 <h3 class="font-en-magic text-xl text-[#3E200D] mt-1">Robux Top-Up Service (Rate 3)</h3>
+                            </div>
+                        </div>
+
                         <div class="p-3.5 rounded-2xl bg-[#FFFBF5] border border-[#DFC0A2] font-th-sweet text-xs text-[#5C3317] space-y-1.5 leading-relaxed">
                             <p><b>รายละเอียดการส่งโรบัคเรท 3:</b> คำนวณง่ายๆ โดยนำจำนวน Robux หาร 3 (ปัดเศษลง)</p>
                             <p class="text-[#EA6A20] font-bold">ตัวอย่าง: 25 โร ÷ 3 = 8 บาท | 100 โร ÷ 3 = 33 บาท | 500 โร ÷ 3 = 166 บาท</p>
@@ -2837,7 +2671,13 @@
                 `;
 
                 if (currentAccountSubMode === 'ready') {
-                    const readyHtml = READY_ACCOUNTS_CATALOG.map(acc => {
+                    const readyHtml = READY_ACCOUNTS_CATALOG.length === 0
+                        ? `
+                            <div class="sm:col-span-2 text-center py-8 px-4 rounded-3xl bg-[#F7EBDD] border border-[#DFC0A2]">
+                                <p class="font-th-sweet text-sm text-[#7C4D30]">ยังไม่มีรายการแอคเคาท์เปล่าแต่งแล้วในขณะนี้ค่ะ</p>
+                            </div>
+                        `
+                        : READY_ACCOUNTS_CATALOG.map(acc => {
                         const isSold = Boolean(acc.sold);
                         const inCart = cartItems.some(c => c.type === 'ready-account' && c.itemId === acc.id);
                         const imgUrl = (acc.images && acc.images[0]) || 'https://placehold.co/600x360/FFE6CF/3E200D?text=Account';
@@ -3268,9 +3108,9 @@
                 }
             });
 
-            saveStorage('meoworange_gmail_catalog_v2', GMAIL_CATALOG);
-            saveStorage('meoworange_game_ids_v1', GAME_IDS_CATALOG);
-            saveStorage('meoworange_ready_accounts_v1', READY_ACCOUNTS_CATALOG);
+            saveStorage('meoworange_gmail_catalog_prod_v1', GMAIL_CATALOG);
+            saveStorage('meoworange_game_ids_prod_v1', GAME_IDS_CATALOG);
+            saveStorage('meoworange_ready_accounts_prod_v1', READY_ACCOUNTS_CATALOG);
 
             const now = new Date();
             const orderObj = {
@@ -3870,7 +3710,7 @@
                 const adminCredits = getUserCredits(STORE_BACKEND_CONFIG.adminUsername);
                 currentUser = {
                     username: STORE_BACKEND_CONFIG.adminUsername,
-                    callName: 'orange cat (Admin)',
+                    callName: 't (Admin)',
                     avatar: storeSettings.logoUrl,
                     credits: adminCredits,
                     role: 'admin'
@@ -3880,7 +3720,7 @@
                 renderPrincessReviews();
                 renderProfileTab();
                 updateUnreadChatBadge();
-                showToast('ยินดีต้อนรับแอดมิน meowmartin ค่ะ');
+                showToast('ยินดีต้อนรับแอดมิน t ค่ะ');
                 return;
             }
 
@@ -4176,26 +4016,24 @@
             const liveCredits = getUserCredits();
             currentUser.credits = liveCredits;
 
-            document.getElementById('memberRoleBadge').textContent = isAdmin ? 'ADMIN MASTER (meowmartin)' : 'ROYAL MEMBER';
+            document.getElementById('memberRoleBadge').textContent = isAdmin ? 'ADMIN • เจ้าของร้าน' : 'MEMBER • สมาชิก';
             document.getElementById('memberDisplayNameText').textContent = currentUser.callName;
             document.getElementById('memberUsernameSub').textContent = `@${currentUser.username}`;
-            document.getElementById('memberCreditBalanceDisplay').textContent = liveCredits;
-            document.getElementById('memberCreditBahtDisplay').textContent = `(= ${liveCredits} บาท)`;
             document.getElementById('editNicknameInput').value = currentUser.callName;
 
-            const avatarEl = document.getElementById('memberAvatarDisplay');
-            if (currentUser.avatar) {
-                avatarEl.innerHTML = `<img src="${currentUser.avatar}" alt="Avatar" class="w-full h-full object-cover">`;
-            } else {
-                avatarEl.innerHTML = DEFAULT_CAT_PAW_SVG;
-            }
+            document.getElementById('memberCreditBalanceDisplay').textContent = liveCredits;
+            document.getElementById('memberCreditBahtDisplay').textContent = `(= ${liveCredits} บาท)`;
 
-            const myOrdersCount = isAdmin
-                ? userOrders.length
-                : userOrders.filter(o => o.username === currentUser.username).length;
-
-            document.getElementById('profileOrderCount').textContent = myOrdersCount;
+            const myOrders = isAdmin ? userOrders : userOrders.filter(o => o.username === currentUser.username);
+            document.getElementById('profileOrderCount').textContent = myOrders.length;
             document.getElementById('profileCartCount').textContent = cartItems.length;
+
+            const avatarBox = document.getElementById('memberAvatarDisplay');
+            if (currentUser.avatar) {
+                avatarBox.innerHTML = `<img src="${currentUser.avatar}" alt="Avatar" class="w-full h-full object-cover">`;
+            } else {
+                avatarBox.innerHTML = DEFAULT_CAT_PAW_SVG;
+            }
 
             renderPaymentQrDisplay();
             renderUserTopupStatusList();
@@ -4209,900 +4047,685 @@
         }
 
         // =========================================================
-        // 11. ADMIN CONTROL CENTER (meowmartin ONLY)
+        // 11. FULL ADMIN CONTROL CENTER (meowmartin ONLY)
         // =========================================================
-        function switchAdminSubTab(tabName) {
-            currentAdminSubTab = tabName;
-            document.querySelectorAll('.adm-subtab-btn').forEach(btn => {
-                btn.className = 'adm-subtab-btn px-3 py-1.5 rounded-full bg-[#F5E6D3] text-[#4A2511] border border-[#DFC0A2] font-th-sweet text-xs font-bold transition';
+        function switchAdminSubTab(tabKey) {
+            currentAdminSubTab = tabKey;
+            ['topups', 'orders', 'products', 'qr', 'store', 'media'].forEach(key => {
+                const btn = document.getElementById(`admTab-${key}`);
+                if (!btn) return;
+                if (key === tabKey) {
+                    btn.className = 'adm-subtab-btn px-3 py-1.5 rounded-full bg-[#4A2511] text-[#FFFBF5] font-th-sweet text-xs font-bold transition';
+                } else {
+                    btn.className = 'adm-subtab-btn px-3 py-1.5 rounded-full bg-[#F5E6D3] text-[#4A2511] border border-[#DFC0A2] font-th-sweet text-xs font-bold transition';
+                }
             });
-            const activeBtn = document.getElementById(`admTab-${tabName}`);
-            if (activeBtn) {
-                activeBtn.className = 'adm-subtab-btn px-3 py-1.5 rounded-full bg-[#4A2511] text-[#FFFBF5] font-th-sweet text-xs font-bold transition';
-            }
             renderAdminSubTabContent();
         }
 
         function renderAdminSubTabContent() {
-            const container = document.getElementById('adminSubTabContent');
-            if (!container || !currentUser || currentUser.role !== 'admin') return;
+            const box = document.getElementById('adminSubTabContent');
+            if (!box || !currentUser || currentUser.role !== 'admin') return;
 
+            // TAB A: TOP-UP SLIPS & CREDIT MANAGEMENT
             if (currentAdminSubTab === 'topups') {
-                const topupsHtml = topupRequests.length === 0
-                    ? `<p class="font-th-sweet text-xs text-[#7C4D30]">ยังไม่มีรายการแจ้งโอนเงินจากลูกค้า</p>`
+                const slipsHtml = topupRequests.length === 0
+                    ? `<p class="font-th-sweet text-xs text-[#7C4D30]">ยังไม่มีรายการแจ้งเติมเครดิตจากลูกค้าค่ะ</p>`
                     : topupRequests.map(req => `
-                        <div class="p-3.5 rounded-2xl bg-[#FFFBF5] border border-[#DFC0A2] flex flex-wrap items-center justify-between gap-3">
-                            <div class="flex items-center gap-3">
-                                <img src="${req.slipImage}" alt="Slip" onclick="openLightbox(this.src)"
-                                     class="w-12 h-12 rounded-xl object-cover border border-[#4A2511] cursor-zoom-in">
+                        <div class="p-3.5 rounded-2xl bg-[#FFFBF5] border border-[#DFC0A2] space-y-2.5">
+                            <div class="flex flex-wrap items-center justify-between gap-2">
                                 <div>
-                                    <div class="font-th-sweet text-xs font-bold text-[#3E200D]">
-                                        ลูกค้า: ${escapeHtml(req.callName)} (@${escapeHtml(req.username)}) • <span class="text-[#EA6A20]">${req.amount} บาท</span>
-                                    </div>
-                                    <div class="font-th-sweet text-[11px] text-[#7C4D30]">ส่งเมื่อ: ${escapeHtml(req.submittedAt)}</div>
+                                    <span class="font-th-sweet text-xs font-bold text-[#3E200D]">${escapeHtml(req.callName)} (@${escapeHtml(req.username)})</span>
+                                    <span class="font-th-sweet text-[11px] text-[#7C4D30] block">เวลาส่งสลิป: ${escapeHtml(req.submittedAt)}</span>
                                 </div>
+                                <span class="font-en-magic text-lg text-[#EA6A20]">+${req.amount} เครดิต (${req.amount} ฿)</span>
                             </div>
-                            <div class="flex items-center gap-1.5">
+
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <button type="button" onclick="openLightbox('${req.slipImage}')"
+                                        class="px-3 py-1.5 rounded-xl bg-[#F5E6D3] hover:bg-[#FFE6CF] text-[#3E200D] border border-[#DFC0A2] font-th-sweet text-xs font-bold">
+                                    <i class="fa-solid fa-image text-[#EA6A20] mr-1"></i>ดูภาพสลิปโอนเงิน
+                                </button>
+
                                 ${req.status === 'pending' ? `
-                                    <button type="button" onclick="adminApproveTopup('${req.id}')"
-                                            class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-th-sweet text-xs font-bold">
-                                        อนุมัติ (+${req.amount} เครดิต)
-                                    </button>
-                                    <button type="button" onclick="adminRejectTopup('${req.id}')"
-                                            class="px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-th-sweet text-xs font-bold">
-                                        ปฏิเสธ
-                                    </button>
+                                    <div class="flex items-center gap-1.5">
+                                        <button type="button" onclick="adminApproveTopup('${req.id}')"
+                                                class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-th-sweet text-xs font-bold shadow">
+                                            ✓ อนุมัติเติมเครดิต
+                                        </button>
+                                        <button type="button" onclick="adminRejectTopup('${req.id}')"
+                                                class="px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-th-sweet text-xs font-bold">
+                                            ✕ ปฏิเสธ
+                                        </button>
+                                    </div>
                                 ` : `
                                     <span class="px-3 py-1 rounded-full text-xs font-th-sweet font-bold ${req.status === 'approved' ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">
-                                        ${req.status === 'approved' ? 'อนุมัติแล้ว' : 'ปฏิเสธแล้ว'}
+                                        ${req.status === 'approved' ? 'อนุมัติแล้ว ✓' : 'ปฏิเสธแล้ว ✕'}
                                     </span>
                                 `}
                             </div>
                         </div>
                     `).join('');
 
-                const membersHtml = registeredUsers.map(u => `
-                    <div class="p-3 rounded-2xl bg-[#FFFBF5] border border-[#DFC0A2] flex flex-wrap items-center justify-between gap-2 text-xs">
-                        <div>
-                            <b>${escapeHtml(u.callName || u.username)}</b> (@${escapeHtml(u.username)})
-                            <span class="ml-2 font-bold text-[#EA6A20]">${Number(u.credits) || 0} เครดิต</span>
+                const membersHtml = registeredUsers.length === 0
+                    ? `<p class="font-th-sweet text-xs text-[#7C4D30]">ยังไม่มีสมาชิกสมัครเข้ามาค่ะ</p>`
+                    : registeredUsers.map(u => `
+                        <div class="p-2.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] flex flex-wrap items-center justify-between gap-2 text-xs">
+                            <div>
+                                <b>${escapeHtml(u.callName)}</b> (@${escapeHtml(u.username)})
+                                <span class="text-[#EA6A20] font-bold ml-1.5">${Number(u.credits) || 0} เครดิต</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <input type="number" id="admCreditAdjust-${escapeHtml(u.username)}" placeholder="จำนวน..." class="w-20 px-2 py-1 rounded-lg border border-[#DFC0A2] text-xs">
+                                <button type="button" onclick="adminAdjustMemberCredit('${escapeHtml(u.username)}', 1)" class="px-2 py-1 rounded-lg bg-emerald-600 text-white font-bold">+เพิ่ม</button>
+                                <button type="button" onclick="adminAdjustMemberCredit('${escapeHtml(u.username)}', -1)" class="px-2 py-1 rounded-lg bg-red-600 text-white font-bold">-หัก</button>
+                            </div>
                         </div>
-                        <div class="flex items-center gap-1.5">
-                            <input type="number" id="admCreditInput-${escapeHtml(u.username)}" value="${Number(u.credits) || 0}"
-                                   class="w-24 px-2 py-1 rounded-xl border border-[#DFC0A2] text-xs">
-                            <button type="button" onclick="adminSetMemberCredits('${escapeHtml(u.username)}')"
-                                    class="px-3 py-1 rounded-xl bg-[#4A2511] text-white font-th-sweet font-bold">
-                                แก้ไขเครดิต
-                            </button>
-                        </div>
-                    </div>
-                `).join('');
+                    `).join('');
 
-                container.innerHTML = `
+                box.innerHTML = `
                     <div class="space-y-4">
                         <div class="p-4 rounded-2xl bg-[#F7EBDD] border border-[#DFC0A2] space-y-2.5">
-                            <h4 class="font-th-sweet text-sm font-bold text-[#3E200D]">รายการสลิปเติมเครดิตจากลูกค้า</h4>
-                            ${topupsHtml}
+                            <h4 class="font-th-sweet text-sm font-bold text-[#3E200D]">รายการแจ้งโอนและตรวจสอบสลิป (${topupRequests.length})</h4>
+                            <div class="space-y-2 max-h-72 overflow-y-auto pr-1">${slipsHtml}</div>
                         </div>
+
                         <div class="p-4 rounded-2xl bg-[#F7EBDD] border border-[#DFC0A2] space-y-2">
-                            <h4 class="font-th-sweet text-sm font-bold text-[#3E200D]">จัดการเครดิตสมาชิกทั้งหมด</h4>
-                            ${membersHtml || '<p class="font-th-sweet text-xs text-[#7C4D30]">ยังไม่มีสมาชิกที่สมัครใหม่</p>'}
+                            <h4 class="font-th-sweet text-sm font-bold text-[#3E200D]">จัดการยอดเครดิตสมาชิกทั้งหมด</h4>
+                            <div class="space-y-1.5 max-h-56 overflow-y-auto">${membersHtml}</div>
                         </div>
                     </div>
                 `;
                 return;
             }
 
+            // TAB B: CUSTOMER ORDERS MANAGEMENT
             if (currentAdminSubTab === 'orders') {
-                const statusChoices = [
-                    'กำลังดำเนินตามคิว',
-                    'กำลังเริ่มงาน',
-                    'กำลังเพิ่มยอดฟอล',
-                    'จบงาน'
-                ];
-
                 const ordersHtml = userOrders.length === 0
-                    ? `<p class="font-th-sweet text-xs text-[#7C4D30]">ยังไม่มีรายการสั่งซื้อจากลูกค้า</p>`
-                    : userOrders.map(ord => {
-                        const hasCustomStatus = ord.status && !statusChoices.includes(ord.status);
-                        const optionsHtml = `
-                            ${hasCustomStatus ? `<option value="${escapeHtml(ord.status)}" selected>${escapeHtml(ord.status)}</option>` : ''}
-                            ${statusChoices.map(st => `<option value="${st}" ${ord.status === st ? 'selected' : ''}>${st}</option>`).join('')}
-                        `;
-
-                        return `
-                            <div class="p-3.5 rounded-2xl bg-[#FFFBF5] border border-[#DFC0A2] space-y-2.5 text-xs">
-                                <div class="flex flex-wrap items-center justify-between gap-2">
-                                    <div>
-                                        <span><b>#${escapeHtml(ord.orderId)}</b> • ${escapeHtml(ord.customerName)} (@${escapeHtml(ord.username)})</span>
-                                        <span class="ml-2 font-bold text-[#EA6A20]">${ord.total} เครดิต (${ord.total} ฿)</span>
-                                    </div>
-                                    <button type="button" onclick="adminOpenChatWithCustomer('${escapeHtml(ord.username)}', '${escapeHtml(ord.customerName)}', '${escapeHtml(ord.orderId)}')"
-                                            class="px-3 py-1.5 rounded-xl bg-[#FFE6CF] hover:bg-[#FF9B54] text-[#4A2511] hover:text-white border border-[#EA6A20]/50 font-th-sweet text-xs font-bold transition flex items-center gap-1.5">
-                                        <i class="fa-solid fa-comments text-[#EA6A20]"></i>
-                                        <span>ติดต่อลูกค้า</span>
-                                    </button>
-                                </div>
-
-                                <div class="font-th-sweet text-[#5C3317]">${ord.items.map(i => i.titleTh).join(', ')}</div>
-
-                                <!-- Selectable Status Dropdown -->
-                                <div class="flex gap-2">
-                                    <select id="admOrdStatus-${ord.orderId}"
-                                            class="flex-1 px-2.5 py-2 rounded-xl bg-[#FFFDF9] border border-[#DFC0A2] font-th-sweet text-xs font-bold text-[#3E200D] focus:outline-none focus:border-[#EA6A20]">
-                                        ${optionsHtml}
-                                    </select>
-                                    <button type="button" onclick="adminUpdateOrderStatus('${ord.orderId}')"
-                                            class="px-3.5 py-2 rounded-xl bg-[#4A2511] hover:bg-[#EA6A20] text-white font-th-sweet font-bold shrink-0 transition">
-                                        อัปเดตสถานะ
-                                    </button>
-                                </div>
-
-                                <!-- Order Reply Box (email : & password :) -->
-                                <div class="p-3 rounded-xl bg-[#F7EBDD] border border-[#DFC0A2] space-y-2">
-                                    <div class="font-th-sweet text-[11px] font-bold text-[#3E200D]">
-                                        <i class="fa-solid fa-key text-[#EA6A20] mr-1"></i>ช่องตอบกลับออเดอร์ลูกค้า (ส่งข้อมูลบัญชี):
-                                    </div>
-                                    ${ord.deliveredData ? `
-                                        <pre class="text-[11px] font-mono text-[#3E200D] bg-[#FFFBF5] p-2 rounded-lg border border-[#E8D4C0] whitespace-pre-wrap break-all">${escapeHtml(ord.deliveredData)}</pre>
-                                    ` : ''}
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
-                                        <div class="flex items-center gap-1.5 bg-[#FFFBF5] px-2.5 py-1.5 rounded-xl border border-[#DFC0A2]">
-                                            <span class="font-mono text-[11px] font-bold text-[#7C4D30] shrink-0">email :</span>
-                                            <input type="text" id="admOrdReplyEmail-${ord.orderId}" placeholder="กรอกอีเมล..."
-                                                   class="w-full bg-transparent text-xs text-[#3E200D] focus:outline-none">
-                                        </div>
-                                        <div class="flex items-center gap-1.5 bg-[#FFFBF5] px-2.5 py-1.5 rounded-xl border border-[#DFC0A2]">
-                                            <span class="font-mono text-[11px] font-bold text-[#7C4D30] shrink-0">password :</span>
-                                            <input type="text" id="admOrdReplyPass-${ord.orderId}" placeholder="กรอกรหัสผ่าน..."
-                                                   class="w-full bg-transparent text-xs text-[#3E200D] focus:outline-none">
-                                        </div>
-                                    </div>
-                                    <button type="button" onclick="adminReplyOrderCredentials('${ord.orderId}')"
-                                            class="w-full py-1.5 rounded-xl bg-gradient-to-r from-[#FF9B54] to-[#EA6A20] hover:from-[#EA6A20] hover:to-[#4A2511] text-white font-th-sweet text-xs font-bold shadow-sm transition">
-                                        ส่งข้อมูล email &amp; password ให้ออเดอร์นี้
+                    ? `<p class="font-th-sweet text-xs text-[#7C4D30]">ยังไม่มีรายการสั่งซื้อเข้ามาค่ะ</p>`
+                    : userOrders.map(ord => `
+                        <div class="p-3.5 rounded-2xl bg-[#FFFBF5] border border-[#DFC0A2] space-y-2 text-xs">
+                            <div class="flex items-center justify-between">
+                                <span class="font-pixel text-[#EA6A20]">#${escapeHtml(ord.orderId)}</span>
+                                <span class="font-th-sweet text-[#7C4D30]">${escapeHtml(ord.date)}</span>
+                            </div>
+                            <div class="font-th-sweet">ลูกค้า: <b>${escapeHtml(ord.customerName)}</b> (@${escapeHtml(ord.username)}) • ยอดชำระ: <b class="text-[#EA6A20]">${ord.total} เครดิต</b></div>
+                            <div class="font-th-sweet text-[#5C3317] bg-[#F7EBDD] p-2 rounded-xl whitespace-pre-wrap break-all">${escapeHtml(ord.deliveredData || '')}</div>
+                            <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+                                <span class="px-2.5 py-0.5 rounded-full bg-[#FFE6CF] text-[#4A2511] font-th-sweet font-bold">${escapeHtml(ord.status)}</span>
+                                <div class="flex gap-1.5">
+                                    <button type="button" onclick="adminMarkOrderDone('${ord.orderId}')"
+                                            class="px-3 py-1 rounded-xl bg-emerald-600 text-white font-th-sweet font-bold">
+                                        ✓ ดำเนินการจัดส่งสำเร็จ
                                     </button>
                                 </div>
                             </div>
-                        `;
-                    }).join('');
+                        </div>
+                    `).join('');
 
-                container.innerHTML = `
+                box.innerHTML = `
                     <div class="p-4 rounded-2xl bg-[#F7EBDD] border border-[#DFC0A2] space-y-2.5">
-                        <h4 class="font-th-sweet text-sm font-bold text-[#3E200D]">รายการสั่งซื้อทั้งหมดของร้าน</h4>
-                        ${ordersHtml}
+                        <h4 class="font-th-sweet text-sm font-bold text-[#3E200D]">จัดการออเดอร์ลูกค้าทั้งหมด (${userOrders.length})</h4>
+                        <div class="space-y-2 max-h-96 overflow-y-auto">${ordersHtml}</div>
                     </div>
                 `;
                 return;
             }
 
+            // TAB C: PRODUCTS & GMAIL STOCK + GAME IDs + READY ACCOUNTS
             if (currentAdminSubTab === 'products') {
-                const gmailListHtml = GMAIL_CATALOG.length === 0
-                    ? `<p class="font-th-sweet text-xs text-[#7C4D30]">ยังไม่มีรายการจีเมล สามารถสร้างรายการใหม่ด้านบนได้เลยค่ะ</p>`
-                    : GMAIL_CATALOG.map(p => {
-                        const accountsArr = p.accounts || [];
-                        const freeCount = accountsArr.filter(a => !a.sold).length;
-                        const accountsItemsHtml = accountsArr.length === 0
-                            ? `<div class="text-[11px] font-th-sweet text-[#85583F]">ยังไม่มีอีเมลในรายการนี้</div>`
-                            : accountsArr.map((acc, idx) => `
-                                <div class="flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-xl bg-[#F7EBDD] border border-[#E8D4C0] text-[11px]">
-                                    <div class="min-w-0 truncate font-mono text-[#3E200D]">
-                                        <span>${escapeHtml(acc.email)}</span>
-                                        <span class="text-[#7C4D30]"> | ${escapeHtml(acc.password)}</span>
-                                        ${acc.sold
-                                            ? `<span class="ml-1.5 px-1.5 py-0.5 rounded bg-red-100 text-red-700 font-th-sweet text-[10px] font-bold">ขายแล้ว</span>`
-                                            : `<span class="ml-1.5 px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700 font-th-sweet text-[10px] font-bold">ว่าง</span>`
-                                        }
-                                    </div>
-                                    <button type="button" onclick="adminDeleteSingleGmailAccount('${p.id}', ${idx})" title="ลบเมลนี้"
-                                            class="px-2 py-0.5 rounded-lg bg-red-50 hover:bg-red-600 text-red-600 hover:text-white border border-red-200 font-th-sweet text-[10px] font-bold shrink-0 transition">
-                                        ลบเมล
-                                    </button>
-                                </div>
-                            `).join('');
-
-                        return `
-                            <div class="p-3.5 rounded-2xl bg-[#FFFBF5] border border-[#DFC0A2] space-y-2.5 text-xs">
-                                <div class="flex items-start justify-between gap-2">
-                                    <div>
-                                        <span class="inline-block px-2 py-0.5 rounded-full bg-[#FFE6CF] text-[#C85614] font-th-sweet text-[10px] font-bold mb-1">
-                                            ${escapeHtml(p.badgeTh || 'พร้อมส่ง')}
-                                        </span>
-                                        <div>
-                                            <b class="font-th-sweet text-sm text-[#3E200D]">${escapeHtml(p.titleTh)}</b>
-                                            <span class="ml-1 text-[#EA6A20] font-bold">(${p.price} ฿ • ว่าง ${freeCount}/${accountsArr.length})</span>
-                                        </div>
-                                        ${p.descTh ? `<p class="font-th-sweet text-[11px] text-[#7C4D30] mt-0.5">${escapeHtml(p.descTh)}</p>` : ''}
-                                    </div>
-                                    <button type="button" onclick="adminDeleteGmailProduct('${p.id}')"
-                                            class="px-3 py-1 rounded-xl bg-red-600 hover:bg-red-700 text-white font-th-sweet text-[11px] font-bold shrink-0 transition">
-                                        <i class="fa-solid fa-trash mr-1"></i>ลบรายการนี้
-                                    </button>
-                                </div>
-
-                                <div class="space-y-1 max-h-36 overflow-y-auto pr-0.5">
-                                    ${accountsItemsHtml}
-                                </div>
-
-                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5 pt-1 border-t border-[#E8D4C0]">
-                                    <input type="email" id="admAddMail-${p.id}" placeholder="เพิ่มเมลใหม่@gmail.com" class="px-2.5 py-1.5 rounded-xl border border-[#DFC0A2] text-xs">
-                                    <input type="text" id="admAddPass-${p.id}" placeholder="พาสเวิร์ดเมล" class="px-2.5 py-1.5 rounded-xl border border-[#DFC0A2] text-xs">
-                                    <button type="button" onclick="adminAddGmailAccountToStock('${p.id}')" class="px-3 py-1.5 rounded-xl bg-[#4A2511] hover:bg-[#EA6A20] text-white font-th-sweet font-bold transition">
-                                        + เพิ่มเมลเข้าสต็อก
-                                    </button>
+                const gmailStockHtml = GMAIL_CATALOG.length === 0
+                    ? `<p class="font-th-sweet text-xs text-[#7C4D30]">ยังไม่มีรายการจีเมล สามารถเพิ่มรายการใหม่ด้านล่างได้เลยค่ะ</p>`
+                    : GMAIL_CATALOG.map(prod => `
+                    <div class="p-3 rounded-2xl bg-[#FFFBF5] border border-[#DFC0A2] space-y-2">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <div>
+                                <div class="font-th-sweet text-xs font-bold text-[#3E200D]">${escapeHtml(prod.titleTh)} (${prod.price} เครดิต)</div>
+                                <div class="font-th-sweet text-[11px] text-[#7C4D30]">
+                                    ว่าง: ${(prod.accounts || []).filter(a => !a.sold).length} / ขายแล้ว: ${(prod.accounts || []).filter(a => a.sold).length}
                                 </div>
                             </div>
-                        `;
-                    }).join('');
+                            <button type="button" onclick="adminDeleteGmailGroup('${prod.id}')" class="px-2.5 py-1 rounded-lg bg-red-600 text-white font-th-sweet text-[11px] font-bold">ลบหมวดนี้</button>
+                        </div>
 
-                const gameIdsHtml = GAME_IDS_CATALOG.map(g => `
-                    <div class="p-2.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] flex items-center justify-between gap-2 text-xs">
-                        <span class="font-th-sweet truncate"><b>[${escapeHtml(g.gameLabel)}]</b> ${escapeHtml(g.title)} (${g.price} ฿) ${g.sold ? '<b class="text-red-600">[หมด]</b>' : ''}</span>
-                        <button type="button" onclick="adminDeleteGameId('${g.id}')" class="px-2.5 py-1 rounded-lg bg-red-600 text-white text-[10px]">ลบ</button>
+                        <div class="space-y-1 max-h-36 overflow-y-auto">
+                            ${(prod.accounts || []).map((acc, idx) => `
+                                <div class="px-2.5 py-1.5 rounded-xl bg-[#F7EBDD] flex items-center justify-between gap-2 text-[11px] font-mono">
+                                    <span class="truncate ${acc.sold ? 'line-through text-red-600' : 'text-[#3E200D]'}">${escapeHtml(acc.email)} : ${escapeHtml(acc.password)}</span>
+                                    <div class="flex items-center gap-1 shrink-0">
+                                        <button type="button" onclick="adminToggleGmailAccountSold('${prod.id}', ${idx})"
+                                                class="px-2 py-0.5 rounded font-th-sweet font-bold ${acc.sold ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-700'}">
+                                            ${acc.sold ? 'หมด (กดรีสต็อก)' : 'ว่าง'}
+                                        </button>
+                                        <button type="button" onclick="adminDeleteGmailAccount('${prod.id}', ${idx})" class="text-red-600 px-1">✕</button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <div class="flex flex-wrap gap-1.5 pt-1">
+                            <input type="text" id="newAccEmail-${prod.id}" placeholder="เพิ่มเมลใหม่ เช่น cute@gmail.com" class="flex-1 min-w-[140px] px-2.5 py-1.5 rounded-xl bg-[#FFFDF9] border border-[#DFC0A2] text-xs">
+                            <input type="text" id="newAccPass-${prod.id}" placeholder="พาสเวิร์ด..." class="w-28 px-2.5 py-1.5 rounded-xl bg-[#FFFDF9] border border-[#DFC0A2] text-xs">
+                            <button type="button" onclick="adminAddAccountToGmailGroup('${prod.id}')" class="px-3 py-1.5 rounded-xl bg-[#4A2511] text-white font-th-sweet text-xs font-bold">+ เพิ่มเมล</button>
+                        </div>
                     </div>
                 `).join('');
 
-                const readyAccsHtml = READY_ACCOUNTS_CATALOG.map(a => `
+                const gameStockHtml = GAME_IDS_CATALOG.length === 0
+                    ? `<p class="font-th-sweet text-xs text-[#7C4D30]">ยังไม่มีรายการไอดีเกม สามารถเพิ่มด้านล่างได้เลยค่ะ</p>`
+                    : GAME_IDS_CATALOG.map(gid => `
                     <div class="p-2.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] flex items-center justify-between gap-2 text-xs">
-                        <span class="font-th-sweet truncate">${escapeHtml(a.title)} (${a.price} ฿) ${a.sold ? '<b class="text-red-600">[หมด]</b>' : ''}</span>
-                        <button type="button" onclick="adminDeleteReadyAccount('${a.id}')" class="px-2.5 py-1 rounded-lg bg-red-600 text-white text-[10px]">ลบ</button>
-                    </div>
-                `).join('');
-
-                container.innerHTML = `
-                    <div class="space-y-4">
-                        <div class="p-4 rounded-2xl bg-[#F7EBDD] border border-[#DFC0A2] space-y-3">
-                            <h4 class="font-th-sweet text-sm font-bold text-[#3E200D]">1. สร้างรายการจีเมลใหม่ &amp; เติมสต็อกจีเมล</h4>
-
-                            <form onsubmit="adminAddNewGmailProduct(event)" class="p-3.5 rounded-2xl bg-[#FFFBF5] border-2 border-dashed border-[#EA6A20]/60 space-y-2">
-                                <div class="font-th-sweet text-xs font-bold text-[#EA6A20]">
-                                    <i class="fa-solid fa-plus-circle mr-1"></i>สร้างรายการจีเมลใหม่ (เขียนชื่อและรายละเอียดเอง)
-                                </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                                    <input type="text" id="admNewGmTitleTh" required placeholder="ชื่อรายการจีเมล (เช่น จีเมลนิวเอง คัดพิเศษ)" class="sm:col-span-2 px-3 py-1.5 rounded-xl bg-[#FFFDF9] border border-[#DFC0A2] font-th-sweet text-xs">
-                                    <input type="number" id="admNewGmPrice" required min="1" placeholder="ราคา (บาท)" class="px-3 py-1.5 rounded-xl bg-[#FFFDF9] border border-[#DFC0A2] text-xs">
-                                </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                    <input type="text" id="admNewGmBadge" placeholder="ป้ายกำกับ (เช่น พร้อมส่ง • ประกัน 7 วัน)" class="px-3 py-1.5 rounded-xl bg-[#FFFDF9] border border-[#DFC0A2] font-th-sweet text-xs">
-                                    <input type="text" id="admNewGmTitleEn" placeholder="ชื่อภาษาอังกฤษ (ไม่ใส่ก็ได้)" class="px-3 py-1.5 rounded-xl bg-[#FFFDF9] border border-[#DFC0A2] text-xs">
-                                </div>
-                                <textarea id="admNewGmDesc" rows="2" placeholder="รายละเอียดจีเมลที่ต้องการแสดงให้ลูกค้าอ่าน..." class="w-full px-3 py-1.5 rounded-xl bg-[#FFFDF9] border border-[#DFC0A2] font-th-sweet text-xs"></textarea>
-                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                                    <input type="email" id="admNewGmFirstMail" placeholder="อีเมลแรกในสต็อก (ไม่บังคับ)" class="px-3 py-1.5 rounded-xl bg-[#FFFDF9] border border-[#DFC0A2] text-xs">
-                                    <input type="text" id="admNewGmFirstPass" placeholder="พาสเวิร์ดแรก (ไม่บังคับ)" class="px-3 py-1.5 rounded-xl bg-[#FFFDF9] border border-[#DFC0A2] text-xs">
-                                    <button type="submit" class="px-4 py-1.5 rounded-xl bg-gradient-to-r from-[#FF9B54] to-[#EA6A20] hover:from-[#EA6A20] hover:to-[#4A2511] text-white font-th-sweet text-xs font-bold shadow transition">
-                                        + สร้างรายการจีเมล
-                                    </button>
-                                </div>
-                            </form>
-
-                            <div class="space-y-2.5">${gmailListHtml}</div>
+                        <div class="min-w-0">
+                            <span class="font-bold text-[#EA6A20]">[${escapeHtml(gid.gameLabel)}]</span>
+                            <span class="font-th-sweet font-bold">${escapeHtml(gid.title)}</span> (${gid.price} ฿)
                         </div>
-
-                        <form onsubmit="adminAddNewGameId(event)" class="p-4 rounded-2xl bg-[#F7EBDD] border border-[#DFC0A2] space-y-2.5">
-                            <h4 class="font-th-sweet text-sm font-bold text-[#3E200D]">2. เพิ่มไอดีเกมใหม่ (RoV / Identity V / Genshin / Roblox)</h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                                <select id="admNewGameType" class="px-3 py-1.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs font-bold">
-                                    <option value="rov">RoV</option>
-                                    <option value="identityv">Identity V</option>
-                                    <option value="genshin">Genshin Impact</option>
-                                    <option value="roblox">Roblox</option>
-                                </select>
-                                <input type="text" id="admNewGameTitle" required placeholder="ชื่อหัวข้อไอดีเกม..." class="px-3 py-1.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] font-th-sweet text-xs">
-                                <input type="number" id="admNewGamePrice" required min="1" placeholder="ราคา (บาท)" class="px-3 py-1.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
-                            </div>
-                            <input type="text" id="admNewGameDetails" required placeholder="รายละเอียดไอดี (สกิน แรงค์ ตัวละคร)..." class="w-full px-3 py-1.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] font-th-sweet text-xs">
-                            <input type="text" id="admNewGameCreds" required placeholder="ข้อมูลล็อกอิน (ID : Pass : Mail) ที่ลูกค้าจะได้หลังจ่ายเงิน..." class="w-full px-3 py-1.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
-                            <div class="flex flex-wrap items-center justify-between gap-2">
-                                <input type="file" id="admNewGameImgFile" accept="image/*" class="text-xs font-th-sweet">
-                                <button type="submit" class="px-4 py-1.5 rounded-xl bg-[#4A2511] hover:bg-[#EA6A20] text-white font-th-sweet text-xs font-bold">+ เพิ่มไอดีเกม</button>
-                            </div>
-                            <div class="space-y-1.5 pt-2">${gameIdsHtml}</div>
-                        </form>
-
-                        <form onsubmit="adminAddNewReadyAccount(event)" class="p-4 rounded-2xl bg-[#F7EBDD] border border-[#DFC0A2] space-y-2.5">
-                            <h4 class="font-th-sweet text-sm font-bold text-[#3E200D]">3. เพิ่มแอคเคาท์เปล่าแต่งแอคแล้ว</h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                <input type="text" id="admNewAccTitle" required placeholder="ชื่อแอคเคาท์แต่งแล้ว..." class="px-3 py-1.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] font-th-sweet text-xs">
-                                <input type="number" id="admNewAccPrice" required min="1" placeholder="ราคา (บาท)" class="px-3 py-1.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
-                            </div>
-                            <input type="text" id="admNewAccDetails" required placeholder="รายละเอียดการแต่งแอค..." class="w-full px-3 py-1.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] font-th-sweet text-xs">
-                            <input type="text" id="admNewAccCreds" required placeholder="รหัสเข้าแอคเคาท์ (ID : Pass : Mail)..." class="w-full px-3 py-1.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
-                            <div class="flex flex-wrap items-center justify-between gap-2">
-                                <input type="file" id="admNewAccImgFile" accept="image/*" class="text-xs font-th-sweet">
-                                <button type="submit" class="px-4 py-1.5 rounded-xl bg-[#4A2511] hover:bg-[#EA6A20] text-white font-th-sweet text-xs font-bold">+ เพิ่มแอคเคาท์แต่งแล้ว</button>
-                            </div>
-                            <div class="space-y-1.5 pt-2">${readyAccsHtml}</div>
-                        </form>
-                    </div>
-                `;
-                return;
-            }
-
-            if (currentAdminSubTab === 'qr') {
-                container.innerHTML = `
-                    <form onsubmit="adminSavePaymentQr(event)" class="p-4 rounded-2xl bg-[#F7EBDD] border border-[#DFC0A2] space-y-3">
-                        <h4 class="font-th-sweet text-sm font-bold text-[#3E200D]">อัปโหลดรูปภาพคิวอาร์โค้ด &amp; เลขบัญชีรับโอน</h4>
-                        <div>
-                            <label class="block font-th-sweet text-xs font-bold mb-1">ชื่อบัญชีรับเงิน</label>
-                            <input type="text" id="admQrReceiver" value="${escapeHtml(paymentConfig.receiverName)}" class="w-full px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] font-th-sweet text-xs">
-                        </div>
-                        <div>
-                            <label class="block font-th-sweet text-xs font-bold mb-1">เลข PromptPay / เลขที่บัญชี</label>
-                            <input type="text" id="admQrAccount" value="${escapeHtml(paymentConfig.accountNumber)}" class="w-full px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
-                        </div>
-                        <div>
-                            <label class="block font-th-sweet text-xs font-bold mb-1">อัปโหลดรูปภาพ QR Code จริงของร้าน</label>
-                            <input type="file" accept="image/*" onchange="adminUploadQrImage(event)" class="text-xs font-th-sweet">
-                        </div>
-                        <div class="flex gap-2">
-                            <button type="submit" class="px-4 py-2 rounded-xl bg-[#4A2511] hover:bg-[#EA6A20] text-white font-th-sweet text-xs font-bold">
-                                บันทึกคิวอาร์โค้ด
+                        <div class="flex items-center gap-1 shrink-0">
+                            <button type="button" onclick="adminToggleGameIdSold('${gid.id}')"
+                                    class="px-2.5 py-1 rounded-lg font-th-sweet font-bold ${gid.sold ? 'bg-red-600 text-white' : 'bg-emerald-100 text-emerald-800'}">
+                                ${gid.sold ? 'หมด (เปิดขาย)' : 'พร้อมขาย'}
                             </button>
-                            ${paymentConfig.qrImageUrl ? `
-                                <button type="button" onclick="adminResetQrImage()" class="px-4 py-2 rounded-xl bg-red-600 text-white font-th-sweet text-xs font-bold">
-                                    ลบรูป QR ที่อัปโหลด
-                                </button>
-                            ` : ''}
+                            <button type="button" onclick="adminDeleteGameId('${gid.id}')" class="px-2 py-1 rounded-lg bg-red-100 text-red-700 font-bold">ลบ</button>
                         </div>
+                    </div>
+                `).join('');
+
+                const readyAccStockHtml = READY_ACCOUNTS_CATALOG.length === 0
+                    ? `<p class="font-th-sweet text-xs text-[#7C4D30]">ยังไม่มีรายการแอคเคาท์เปล่าแต่งแล้ว สามารถเพิ่มด้านล่างได้เลยค่ะ</p>`
+                    : READY_ACCOUNTS_CATALOG.map(acc => `
+                    <div class="p-2.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] flex items-center justify-between gap-2 text-xs">
+                        <div class="min-w-0">
+                            <span class="font-th-sweet font-bold">${escapeHtml(acc.title)}</span> (${acc.price} ฿)
+                        </div>
+                        <div class="flex items-center gap-1 shrink-0">
+                            <button type="button" onclick="adminToggleReadyAccountSold('${acc.id}')"
+                                    class="px-2.5 py-1 rounded-lg font-th-sweet font-bold ${acc.sold ? 'bg-red-600 text-white' : 'bg-emerald-100 text-emerald-800'}">
+                                ${acc.sold ? 'หมด (เปิดขาย)' : 'พร้อมขาย'}
+                            </button>
+                            <button type="button" onclick="adminDeleteReadyAccount('${acc.id}')" class="px-2 py-1 rounded-lg bg-red-100 text-red-700 font-bold">ลบ</button>
+                        </div>
+                    </div>
+                `).join('');
+
+                box.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-2xl bg-[#F7EBDD] border border-[#DFC0A2] space-y-2.5">
+                            <h4 class="font-th-sweet text-sm font-bold text-[#3E200D]">จัดการสต็อกจีเมล &amp; พาสเวิร์ดส่งอัตโนมัติ</h4>
+                            <div class="space-y-2.5">${gmailStockHtml}</div>
+                        </div>
+
+                        <form onsubmit="adminCreateNewGmailGroup(event)" class="p-4 rounded-2xl bg-[#F7EBDD] border border-[#DFC0A2] space-y-2">
+                            <h4 class="font-th-sweet text-sm font-bold text-[#3E200D]">+ เพิ่มรายการแพ็กเกจจีเมลใหม่</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                <input type="text" id="newGmTitleTh" required placeholder="ชื่อรายการจีเมล เช่น จีเมลชื่อสวย 1 ชิ้น..." class="px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] font-th-sweet text-xs">
+                                <input type="number" id="newGmPrice" required min="1" placeholder="ราคา (บาท/เครดิต)..." class="px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                <select id="newGmCategory" class="px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] font-th-sweet text-xs">
+                                    <option value="warranty">นิวเองแบบประกัน</option>
+                                    <option value="no-warranty">นิวเองแบบไม่ประกัน</option>
+                                </select>
+                                <input type="text" id="newGmFirstAcc" required placeholder="เมล:พาส เช่น vip@gmail.com:Pass1234" class="px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
+                            </div>
+                            <button type="submit" class="w-full py-2 rounded-xl bg-[#EA6A20] text-white font-th-sweet text-xs font-bold">บันทึกเพิ่มรายการจีเมล</button>
+                        </form>
+
+                        <div class="p-4 rounded-2xl bg-[#F7EBDD] border border-[#DFC0A2] space-y-2.5">
+                            <h4 class="font-th-sweet text-sm font-bold text-[#3E200D]">จัดการสต็อกไอดีเกม (RoV / IDV / Genshin / Roblox)</h4>
+                            <div class="space-y-1.5">${gameStockHtml}</div>
+
+                            <form onsubmit="adminAddNewGameId(event)" class="pt-2 border-t border-[#DFC0A2] space-y-2">
+                                <div class="font-th-sweet text-xs font-bold text-[#3E200D]">+ เพิ่มไอดีเกมใหม่</div>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                    <select id="admNewGameType" class="px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs font-bold">
+                                        <option value="rov|RoV">RoV</option>
+                                        <option value="identityv|Identity V">Identity V</option>
+                                        <option value="genshin|Genshin Impact">Genshin Impact</option>
+                                        <option value="roblox|Roblox">Roblox</option>
+                                    </select>
+                                    <input type="text" id="admNewGameTitle" required placeholder="หัวข้อไอดีเกม..." class="px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] font-th-sweet text-xs">
+                                    <input type="number" id="admNewGamePrice" required min="1" placeholder="ราคา (บาท)..." class="px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
+                                </div>
+                                <input type="text" id="admNewGameDetails" required placeholder="รายละเอียดสกิน/แรงค์/ตัวละคร..." class="w-full px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] font-th-sweet text-xs">
+                                <input type="text" id="admNewGameCreds" required placeholder="รหัสส่งมอบหลังจ่ายเงิน เช่น ID: ... | Pass: ..." class="w-full px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
+                                <input type="text" id="admNewGameImgUrl" placeholder="URL รูปภาพไอดีเกม (ไม่บังคับ)..." class="w-full px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
+                                <button type="submit" class="w-full py-2 rounded-xl bg-[#4A2511] text-white font-th-sweet text-xs font-bold">+ เพิ่มไอดีเกมลงหน้าร้าน</button>
+                            </form>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-[#F7EBDD] border border-[#DFC0A2] space-y-2.5">
+                            <h4 class="font-th-sweet text-sm font-bold text-[#3E200D]">จัดการสต็อกแอคเคาท์เปล่าแต่งแอคแล้ว</h4>
+                            <div class="space-y-1.5">${readyAccStockHtml}</div>
+
+                            <form onsubmit="adminAddNewReadyAccount(event)" class="pt-2 border-t border-[#DFC0A2] space-y-2">
+                                <div class="font-th-sweet text-xs font-bold text-[#3E200D]">+ เพิ่มแอคเคาท์เปล่าแต่งแอคแล้ว</div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                    <input type="text" id="admNewAccTitle" required placeholder="ชื่อรายการแอคเคาท์..." class="px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] font-th-sweet text-xs">
+                                    <input type="number" id="admNewAccPrice" required min="1" placeholder="ราคา (บาท)..." class="px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
+                                </div>
+                                <input type="text" id="admNewAccDetails" required placeholder="รายละเอียดการแต่งแอค..." class="w-full px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] font-th-sweet text-xs">
+                                <input type="text" id="admNewAccCreds" required placeholder="รหัสส่งมอบหลังจ่ายเงิน เช่น Account ID: ... | Pass: ..." class="w-full px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
+                                <input type="text" id="admNewAccImgUrl" placeholder="URL รูปตัวอย่างแอค (ไม่บังคับ)..." class="w-full px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
+                                <button type="submit" class="w-full py-2 rounded-xl bg-[#4A2511] text-white font-th-sweet text-xs font-bold">+ เพิ่มแอคเคาท์ลงหน้าร้าน</button>
+                            </form>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            // TAB D: QR CODE PAYMENT SETTINGS
+            if (currentAdminSubTab === 'qr') {
+                box.innerHTML = `
+                    <form onsubmit="adminSavePaymentQrSettings(event)" class="p-4 rounded-2xl bg-[#F7EBDD] border border-[#DFC0A2] space-y-3">
+                        <h4 class="font-th-sweet text-sm font-bold text-[#3E200D]">ตั้งค่าคิวอาร์โค้ดรับเงินเติมเครดิต (PromptPay / ธนาคาร)</h4>
+                        <div>
+                            <label class="block font-th-sweet text-xs font-bold text-[#3E200D] mb-1">ชื่อบัญชีผู้รับเงิน:</label>
+                            <input type="text" id="admQrReceiverInput" value="${escapeHtml(paymentConfig.receiverName)}" class="w-full px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] font-th-sweet text-xs">
+                        </div>
+                        <div>
+                            <label class="block font-th-sweet text-xs font-bold text-[#3E200D] mb-1">เลขบัญชี / เบอร์พร้อมเพย์:</label>
+                            <input type="text" id="admQrAccountInput" value="${escapeHtml(paymentConfig.accountNumber)}" class="w-full px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
+                        </div>
+                        <div>
+                            <label class="block font-th-sweet text-xs font-bold text-[#3E200D] mb-1">อัปโหลดรูปภาพ QR Code ของร้าน (หรือใส่ URL รูป):</label>
+                            <input type="file" accept="image/*" onchange="adminUploadPaymentQrFile(event)" class="block w-full text-xs text-[#3E200D] mb-2">
+                            <input type="text" id="admQrUrlInput" value="${escapeHtml(paymentConfig.qrImageUrl)}" placeholder="URL รูปคิวอาร์โค้ด (เว้นว่างเพื่อใช้ QR มาตรฐาน)..." class="w-full px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
+                        </div>
+                        <button type="submit" class="w-full py-2.5 rounded-xl bg-[#4A2511] hover:bg-[#EA6A20] text-white font-th-sweet text-xs font-bold">บันทึกการตั้งค่าคิวอาร์โค้ด</button>
                     </form>
                 `;
                 return;
             }
 
+            // TAB E: STORE PROFILE & CONTACT SETTINGS
             if (currentAdminSubTab === 'store') {
-                container.innerHTML = `
+                box.innerHTML = `
                     <form onsubmit="adminSaveStoreSettings(event)" class="p-4 rounded-2xl bg-[#F7EBDD] border border-[#DFC0A2] space-y-2.5">
-                        <h4 class="font-th-sweet text-sm font-bold text-[#3E200D]">แก้ไขข้อมูลหน้าร้าน &amp; ลิงก์ช่องทางติดต่อ</h4>
+                        <h4 class="font-th-sweet text-sm font-bold text-[#3E200D]">แก้ไขข้อมูลร้านและช่องทางติดต่อ</h4>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                            <div>
-                                <label class="block font-th-sweet text-[11px] font-bold">ชื่อร้าน</label>
-                                <input type="text" id="admStoreName" value="${escapeHtml(storeSettings.storeName)}" class="w-full px-3 py-1.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
-                            </div>
-                            <div>
-                                <label class="block font-th-sweet text-[11px] font-bold">คำโปรยภาษาอังกฤษ</label>
-                                <input type="text" id="admStoreSub" value="${escapeHtml(storeSettings.subtitleEn)}" class="w-full px-3 py-1.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
-                            </div>
+                            <input type="text" id="admStoreNameInput" value="${escapeHtml(storeSettings.storeName)}" placeholder="ชื่อร้าน..." class="px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs font-bold">
+                            <input type="text" id="admStoreLogoInput" value="${escapeHtml(storeSettings.logoUrl)}" placeholder="URL โลโก้ร้าน..." class="px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
                         </div>
-                        <div>
-                            <label class="block font-th-sweet text-[11px] font-bold">คำอธิบายหน้าร้าน (ภาษาไทย)</label>
-                            <input type="text" id="admStoreTagline" value="${escapeHtml(storeSettings.taglineTh)}" class="w-full px-3 py-1.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] font-th-sweet text-xs">
-                        </div>
+                        <input type="text" id="admStoreSubInput" value="${escapeHtml(storeSettings.subtitleEn)}" placeholder="คำโปรยภาษาอังกฤษ..." class="w-full px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
+                        <input type="text" id="admStoreTagInput" value="${escapeHtml(storeSettings.taglineTh)}" placeholder="คำอธิบายร้านภาษาไทย..." class="w-full px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] font-th-sweet text-xs">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                            <div>
-                                <label class="block font-th-sweet text-[11px] font-bold">ลิงก์ Facebook ร้าน</label>
-                                <input type="url" id="admFbUrl" value="${escapeHtml(storeSettings.fbUrl || INITIAL_STORE_SETTINGS.fbUrl)}" class="w-full px-3 py-1.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
-                            </div>
-                            <div>
-                                <label class="block font-th-sweet text-[11px] font-bold">ลิงก์ LINE ส่วนตัว</label>
-                                <input type="url" id="admLpUrl" value="${escapeHtml(storeSettings.linePersonalUrl || INITIAL_STORE_SETTINGS.linePersonalUrl)}" class="w-full px-3 py-1.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
-                            </div>
+                            <input type="text" id="admFbUrlInput" value="${escapeHtml(storeSettings.fbUrl || '')}" placeholder="ลิงก์ Facebook ร้าน..." class="px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
+                            <input type="text" id="admLineUrlInput" value="${escapeHtml(storeSettings.linePersonalUrl || '')}" placeholder="ลิงก์ LINE ส่วนตัว..." class="px-3 py-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
                         </div>
-                        <div>
-                            <label class="block font-th-sweet text-[11px] font-bold mb-1">เปลี่ยนรูปโปรไฟล์ร้าน</label>
-                            <input type="file" accept="image/*" onchange="adminUploadStoreLogo(event)" class="text-xs font-th-sweet">
-                        </div>
-                        <button type="submit" class="px-4 py-2 rounded-xl bg-[#4A2511] hover:bg-[#EA6A20] text-white font-th-sweet text-xs font-bold">
-                            บันทึกข้อมูลหน้าร้าน
-                        </button>
+                        <button type="submit" class="w-full py-2.5 rounded-xl bg-[#4A2511] hover:bg-[#EA6A20] text-white font-th-sweet text-xs font-bold">บันทึกข้อมูลร้าน</button>
                     </form>
                 `;
                 return;
             }
 
+            // TAB F: PLAYLIST & REVIEWS MODERATION
             if (currentAdminSubTab === 'media') {
                 const tracksHtml = PLAYLIST_TRACKS.map((tr, i) => `
-                    <div class="p-2.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] space-y-1.5 text-xs">
-                        <div class="flex items-center justify-between">
-                            <span class="font-bold text-[#EA6A20]">เพลงที่ #${i + 1}</span>
-                            ${PLAYLIST_TRACKS.length > 1 ? `
-                                <button type="button" onclick="adminDeletePlaylistTrack(${i})" class="px-2 py-0.5 rounded-lg bg-red-600 hover:bg-red-700 text-white font-th-sweet text-[10px] font-bold">
-                                    <i class="fa-solid fa-trash mr-0.5"></i>ลบเพลงนี้
-                                </button>
-                            ` : ''}
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5">
-                            <input type="text" id="admTrId-${i}" value="${escapeHtml(tr.id)}" placeholder="ลิงก์ YouTube หรือ Video ID" class="px-2 py-1.5 rounded-lg border border-[#DFC0A2]">
-                            <input type="text" id="admTrTitle-${i}" value="${escapeHtml(tr.title)}" placeholder="ชื่อเพลง" class="px-2 py-1.5 rounded-lg border border-[#DFC0A2]">
-                            <input type="text" id="admTrArtist-${i}" value="${escapeHtml(tr.artist)}" placeholder="ชื่อศิลปิน" class="px-2 py-1.5 rounded-lg border border-[#DFC0A2]">
-                        </div>
+                    <div class="flex items-center justify-between gap-2 p-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
+                        <span class="truncate"><b>#${i + 1}</b> ${escapeHtml(tr.title)} - ${escapeHtml(tr.artist)}</span>
+                        <button type="button" onclick="adminDeletePlaylistTrack(${i})" class="px-2 py-0.5 rounded bg-red-600 text-white text-[10px] font-bold">ลบ</button>
                     </div>
                 `).join('');
 
-                const revsHtml = reviewsData.map(r => `
-                    <div class="p-2.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] flex items-center justify-between gap-2 text-xs">
-                        <span class="font-th-sweet truncate"><b>${escapeHtml(r.sender)}</b> (${r.paws}🐾): ${escapeHtml(r.message)}</span>
-                        <button type="button" onclick="adminDeleteReview('${r.id}')" class="px-2.5 py-1 rounded-lg bg-red-600 text-white text-[10px]">ลบ</button>
-                    </div>
-                `).join('');
+                const revsHtml = reviewsData.length === 0
+                    ? `<p class="font-th-sweet text-xs text-[#7C4D30]">ยังไม่มีรีวิวในระบบค่ะ</p>`
+                    : reviewsData.map(r => `
+                        <div class="flex items-center justify-between gap-2 p-2 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
+                            <span class="font-th-sweet truncate"><b>${escapeHtml(r.sender)}</b> (${r.paws}🐾): ${escapeHtml(r.message)}</span>
+                            <button type="button" onclick="adminDeleteReview('${r.id}')" class="px-2 py-0.5 rounded bg-red-600 text-white text-[10px] font-bold shrink-0">ลบ</button>
+                        </div>
+                    `).join('');
 
-                container.innerHTML = `
-                    <div class="space-y-4">
-                        <div class="p-4 rounded-2xl bg-[#F7EBDD] border border-[#DFC0A2] space-y-3">
-                            <h4 class="font-th-sweet text-sm font-bold text-[#3E200D]">จัดการรายการเพลงในเครื่องเล่นแผ่นเสียง (${PLAYLIST_TRACKS.length} เพลง)</h4>
-
-                            <form onsubmit="adminAddNewPlaylistTrack(event)" class="p-3 rounded-xl bg-[#FFFBF5] border-2 border-dashed border-[#EA6A20]/60 space-y-2">
-                                <div class="font-th-sweet text-xs font-bold text-[#EA6A20]">
-                                    <i class="fa-solid fa-music mr-1"></i>เพิ่มเพลงใหม่เข้าเครื่องเล่น (วางลิงก์ YouTube หรือ Video ID ได้เลยค่ะ)
-                                </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5">
-                                    <input type="text" id="admNewTrackUrlOrId" required placeholder="วางลิงก์ YouTube หรือรหัส 11 ตัว" class="px-2.5 py-1.5 rounded-lg bg-[#FFFDF9] border border-[#DFC0A2] text-xs">
-                                    <input type="text" id="admNewTrackTitle" required placeholder="ชื่อเพลง..." class="px-2.5 py-1.5 rounded-lg bg-[#FFFDF9] border border-[#DFC0A2] text-xs">
-                                    <input type="text" id="admNewTrackArtist" required placeholder="ชื่อศิลปิน..." class="px-2.5 py-1.5 rounded-lg bg-[#FFFDF9] border border-[#DFC0A2] text-xs">
-                                </div>
-                                <button type="submit" class="w-full sm:w-auto px-4 py-1.5 rounded-xl bg-gradient-to-r from-[#FF9B54] to-[#EA6A20] hover:from-[#EA6A20] hover:to-[#4A2511] text-white font-th-sweet text-xs font-bold shadow transition">
-                                    + เพิ่มเพลงเข้าเพลย์ลิสต์
-                                </button>
+                box.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="p-4 rounded-2xl bg-[#F7EBDD] border border-[#DFC0A2] space-y-2">
+                            <h4 class="font-th-sweet text-sm font-bold text-[#3E200D]">จัดการเพลย์ลิสต์เพลง (${PLAYLIST_TRACKS.length})</h4>
+                            <div class="space-y-1.5">${tracksHtml}</div>
+                            <form onsubmit="adminAddPlaylistTrack(event)" class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2">
+                                <input type="text" id="admNewYtId" required placeholder="YouTube Video ID..." class="px-2.5 py-1.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
+                                <input type="text" id="admNewSongTitle" required placeholder="ชื่อเพลง..." class="px-2.5 py-1.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
+                                <input type="text" id="admNewSongArtist" required placeholder="ชื่อศิลปิน..." class="px-2.5 py-1.5 rounded-xl bg-[#FFFBF5] border border-[#DFC0A2] text-xs">
+                                <button type="submit" class="sm:col-span-3 py-2 rounded-xl bg-[#4A2511] text-white font-th-sweet text-xs font-bold">+ เพิ่มเพลงลงแผ่นเสียง</button>
                             </form>
-
-                            <div class="space-y-2">${tracksHtml}</div>
-
-                            <button type="button" onclick="adminSavePlaylistTracks()" class="px-4 py-2 rounded-xl bg-[#4A2511] hover:bg-[#EA6A20] text-white font-th-sweet text-xs font-bold transition">
-                                บันทึกการแก้ไขรายการเพลงทั้งหมด
-                            </button>
                         </div>
+
                         <div class="p-4 rounded-2xl bg-[#F7EBDD] border border-[#DFC0A2] space-y-2">
                             <h4 class="font-th-sweet text-sm font-bold text-[#3E200D]">จัดการรีวิวทั้งหมด (${reviewsData.length})</h4>
-                            ${revsHtml}
+                            <div class="space-y-1.5 max-h-48 overflow-y-auto">${revsHtml}</div>
                         </div>
                     </div>
                 `;
             }
         }
 
-        function adminApproveTopup(topupId) {
-            const req = topupRequests.find(r => r.id === topupId);
+        // Admin Action Functions
+        function adminApproveTopup(reqId) {
+            const req = topupRequests.find(r => r.id === reqId);
             if (!req || req.status !== 'pending') return;
             req.status = 'approved';
             saveStorage('meoworange_topup_requests_v1', topupRequests);
 
-            const cur = getUserCredits(req.username);
-            setUserCredits(req.username, cur + Number(req.amount));
+            const before = getUserCredits(req.username);
+            setUserCredits(req.username, before + Number(req.amount));
 
             syncTopUserUI();
-            renderProfileTab();
-            showToast(`อนุมัติสลิป +${req.amount} เครดิตให้ @${req.username} แล้วค่ะ`);
+            renderUserTopupStatusList();
+            renderAdminSubTabContent();
+            showToast(`อนุมัติเติม +${req.amount} เครดิต ให้คุณ ${req.callName} แล้วค่ะ`);
         }
 
-        function adminRejectTopup(topupId) {
-            const req = topupRequests.find(r => r.id === topupId);
-            if (!req || req.status !== 'pending') return;
+        function adminRejectTopup(reqId) {
+            const req = topupRequests.find(r => r.id === reqId);
+            if (!req) return;
             req.status = 'rejected';
             saveStorage('meoworange_topup_requests_v1', topupRequests);
-            renderProfileTab();
-            showToast(`ปฏิเสธสลิปของ @${req.username} แล้วค่ะ`);
+            renderUserTopupStatusList();
+            renderAdminSubTabContent();
+            showToast('ปฏิเสธรายการสลิปแล้วค่ะ');
         }
 
-        function adminSetMemberCredits(username) {
-            const inp = document.getElementById(`admCreditInput-${username}`);
-            if (!inp) return;
-            const newVal = Math.max(0, Number(inp.value) || 0);
-            setUserCredits(username, newVal);
+        function adminAdjustMemberCredit(username, sign) {
+            const input = document.getElementById(`admCreditAdjust-${username}`);
+            const delta = Math.abs(Number(input ? input.value : 0));
+            if (!delta) return;
+            const current = getUserCredits(username);
+            setUserCredits(username, current + sign * delta);
+            if (input) input.value = '';
             syncTopUserUI();
-            renderProfileTab();
-            showToast(`อัปเดตเครดิตของ @${username} เป็น ${newVal} เครดิตแล้วค่ะ`);
+            renderAdminSubTabContent();
+            showToast(`อัปเดตเครดิตของ @${username} เรียบร้อยแล้วค่ะ`);
         }
 
-        function adminUpdateOrderStatus(orderId) {
-            const inp = document.getElementById(`admOrdStatus-${orderId}`);
-            if (!inp) return;
+        function adminMarkOrderDone(orderId) {
             const ord = userOrders.find(o => o.orderId === orderId);
             if (!ord) return;
-            ord.status = inp.value.trim() || ord.status;
+            ord.status = 'ดำเนินการจัดส่งสำเร็จเรียบร้อยแล้ว ✓';
             saveStorage('meoworange_orders_v1', userOrders);
             renderAdminSubTabContent();
-            showToast(`อัปเดตสถานะออเดอร์ #${orderId} เป็น "${ord.status}" แล้วค่ะ`);
+            renderOrdersTab();
+            showToast(`อัปเดตสถานะออเดอร์ #${orderId} สำเร็จแล้วค่ะ`);
         }
 
-        function adminOpenChatWithCustomer(username, customerName, orderId) {
-            const safeUser = username || 'guest';
-            const threadId = safeUser.startsWith('guest') ? `guest:${safeUser}` : `user:${safeUser}`;
-            if (!chatThreads[threadId]) {
-                const nowTime = new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
-                chatThreads[threadId] = {
-                    threadId,
-                    customerName: `${customerName || safeUser} (@${safeUser})`,
-                    unreadByAdmin: 0,
-                    messages: [
-                        {
-                            id: 'bot-' + Date.now(),
-                            sender: 'bot',
-                            text: STORE_BACKEND_CONFIG.botWelcomeMessage,
-                            image: '',
-                            time: nowTime
-                        }
-                    ]
-                };
-                saveStorage('meoworange_chat_threads_v1', chatThreads);
-            }
-            selectedAdminChatThreadId = threadId;
-            switchBottomTab('chat');
-            showToast(`เปิดแชตกับ ${customerName || safeUser} (ออเดอร์ #${orderId}) แล้วค่ะ`);
-        }
-
-        function adminReplyOrderCredentials(orderId) {
-            const ord = userOrders.find(o => o.orderId === orderId);
-            if (!ord) return;
-            const emailInp = document.getElementById(`admOrdReplyEmail-${orderId}`);
-            const passInp = document.getElementById(`admOrdReplyPass-${orderId}`);
-            const emailVal = emailInp ? emailInp.value.trim() : '';
-            const passVal = passInp ? passInp.value.trim() : '';
-
-            if (!emailVal || !passVal) {
-                showToast('กรุณากรอกทั้ง email และ password ก่อนกดส่งนะคะ');
-                return;
-            }
-
-            const formattedLine = `email : ${emailVal}\npassword : ${passVal}`;
-            ord.deliveredData = ord.deliveredData
-                ? `${ord.deliveredData}\n${formattedLine}`
-                : formattedLine;
-
-            saveStorage('meoworange_orders_v1', userOrders);
-            if (emailInp) emailInp.value = '';
-            if (passInp) passInp.value = '';
-            renderAdminSubTabContent();
-            showToast(`ส่งข้อมูล email & password ให้ออเดอร์ #${orderId} เรียบร้อยแล้วค่ะ!`);
-        }
-
-        function adminAddGmailAccountToStock(productId) {
-            const prod = GMAIL_CATALOG.find(p => p.id === productId);
+        function adminAddAccountToGmailGroup(prodId) {
+            const prod = GMAIL_CATALOG.find(p => p.id === prodId);
             if (!prod) return;
-            const mailInp = document.getElementById(`admAddMail-${productId}`);
-            const passInp = document.getElementById(`admAddPass-${productId}`);
-            const emailVal = mailInp ? mailInp.value.trim() : '';
-            const passVal = passInp ? passInp.value.trim() : '';
+            const emailEl = document.getElementById(`newAccEmail-${prodId}`);
+            const passEl = document.getElementById(`newAccPass-${prodId}`);
+            const email = emailEl ? emailEl.value.trim() : '';
+            const password = passEl ? passEl.value.trim() : '';
+            if (!email || !password) return;
 
-            if (!emailVal || !passVal) {
-                showToast('กรุณากรอกทั้งอีเมลและพาสเวิร์ดก่อนเพิ่มเข้าสต็อกนะคะ');
-                return;
-            }
-
-            if (!Array.isArray(prod.accounts)) prod.accounts = [];
-            prod.accounts.push({
-                email: emailVal,
-                password: passVal,
-                recovery: '',
-                sold: false
-            });
-
-            saveStorage('meoworange_gmail_catalog_v2', GMAIL_CATALOG);
-            renderAdminSubTabContent();
+            prod.accounts.push({ email, password, recovery: '', sold: false });
+            saveStorage('meoworange_gmail_catalog_prod_v1', GMAIL_CATALOG);
             renderProductChannelContent();
-            showToast(`เพิ่มเมล ${emailVal} เข้าสต็อกเรียบร้อยแล้วค่ะ`);
+            renderAdminSubTabContent();
+            showToast(`เพิ่มเมล ${email} เข้าสต็อกแล้วค่ะ`);
         }
 
-        function adminAddNewGmailProduct(event) {
+        function adminToggleGmailAccountSold(prodId, accIdx) {
+            const prod = GMAIL_CATALOG.find(p => p.id === prodId);
+            if (!prod || !prod.accounts[accIdx]) return;
+            prod.accounts[accIdx].sold = !prod.accounts[accIdx].sold;
+            saveStorage('meoworange_gmail_catalog_prod_v1', GMAIL_CATALOG);
+            renderProductChannelContent();
+            renderAdminSubTabContent();
+        }
+
+        function adminDeleteGmailAccount(prodId, accIdx) {
+            const prod = GMAIL_CATALOG.find(p => p.id === prodId);
+            if (!prod) return;
+            prod.accounts.splice(accIdx, 1);
+            saveStorage('meoworange_gmail_catalog_prod_v1', GMAIL_CATALOG);
+            renderProductChannelContent();
+            renderAdminSubTabContent();
+        }
+
+        function adminDeleteGmailGroup(prodId) {
+            GMAIL_CATALOG = GMAIL_CATALOG.filter(p => p.id !== prodId);
+            saveStorage('meoworange_gmail_catalog_prod_v1', GMAIL_CATALOG);
+            renderProductChannelContent();
+            renderAdminSubTabContent();
+        }
+
+        function adminCreateNewGmailGroup(event) {
             event.preventDefault();
-            const titleTh = document.getElementById('admNewGmTitleTh').value.trim();
-            const priceVal = Number(document.getElementById('admNewGmPrice').value) || 0;
-            const badgeTh = document.getElementById('admNewGmBadge').value.trim() || 'พร้อมส่ง';
-            const titleEn = document.getElementById('admNewGmTitleEn').value.trim();
-            const descTh = document.getElementById('admNewGmDesc').value.trim();
-            const firstMail = document.getElementById('admNewGmFirstMail').value.trim();
-            const firstPass = document.getElementById('admNewGmFirstPass').value.trim();
-
-            if (!titleTh || priceVal <= 0) {
-                showToast('กรุณากรอกชื่อรายการจีเมลและราคาให้ถูกต้องนะคะ');
-                return;
-            }
-
-            const initialAccounts = [];
-            if (firstMail && firstPass) {
-                initialAccounts.push({
-                    email: firstMail,
-                    password: firstPass,
-                    recovery: '',
-                    sold: false
-                });
-            }
+            const titleTh = document.getElementById('newGmTitleTh').value.trim();
+            const price = Number(document.getElementById('newGmPrice').value) || 10;
+            const category = document.getElementById('newGmCategory').value;
+            const firstPair = document.getElementById('newGmFirstAcc').value.trim();
+            const [email, password] = firstPair.split(':');
 
             GMAIL_CATALOG.unshift({
                 id: 'gm-' + Date.now(),
-                category: 'custom',
-                badgeEn: '',
-                badgeTh: badgeTh,
-                titleEn: titleEn,
-                titleTh: titleTh,
-                price: priceVal,
-                descTh: descTh || 'เลือกชื่อเมลที่ชอบด้านล่างแล้วกดเพิ่มลงตะกร้า เมื่อชำระเงินเสร็จจะได้รับพาสเวิร์ดทันทีค่ะ',
-                accounts: initialAccounts
+                category,
+                badgeEn: category === 'warranty' ? 'With Warranty' : 'No Warranty',
+                badgeTh: category === 'warranty' ? 'นิวเองแบบประกัน' : 'นิวเองแบบไม่ประกัน',
+                titleEn: 'Fresh Self-Registered Gmail',
+                titleTh,
+                price,
+                descTh: 'เลือกชื่อเมลที่ชอบด้านล่าง เมื่อชำระเงินเสร็จจะได้รับพาสเวิร์ดทันทีค่ะ',
+                accounts: email ? [{ email: email.trim(), password: (password || 'Pass1234').trim(), recovery: '', sold: false }] : []
             });
 
-            saveStorage('meoworange_gmail_catalog_v2', GMAIL_CATALOG);
-            renderAdminSubTabContent();
+            saveStorage('meoworange_gmail_catalog_prod_v1', GMAIL_CATALOG);
             renderProductChannelContent();
-            showToast(`สร้างรายการ "${titleTh}" เรียบร้อยแล้วค่ะ!`);
+            renderAdminSubTabContent();
+            showToast('เพิ่มรายการจีเมลใหม่สำเร็จแล้วค่ะ');
         }
 
-        function adminDeleteGmailProduct(productId) {
-            GMAIL_CATALOG = GMAIL_CATALOG.filter(p => p.id !== productId);
-            saveStorage('meoworange_gmail_catalog_v2', GMAIL_CATALOG);
-            renderAdminSubTabContent();
+        function adminToggleGameIdSold(gameId) {
+            const gid = GAME_IDS_CATALOG.find(g => g.id === gameId);
+            if (!gid) return;
+            gid.sold = !gid.sold;
+            saveStorage('meoworange_game_ids_prod_v1', GAME_IDS_CATALOG);
             renderProductChannelContent();
-            showToast('ลบรายการจีเมลเรียบร้อยแล้วค่ะ');
-        }
-
-        function adminDeleteSingleGmailAccount(productId, accountIndex) {
-            const prod = GMAIL_CATALOG.find(p => p.id === productId);
-            if (!prod || !Array.isArray(prod.accounts)) return;
-            prod.accounts.splice(accountIndex, 1);
-            saveStorage('meoworange_gmail_catalog_v2', GMAIL_CATALOG);
             renderAdminSubTabContent();
-            renderProductChannelContent();
-            showToast('ลบอีเมลออกจากสต็อกแล้วค่ะ');
-        }
-
-        function adminAddNewGameId(event) {
-            event.preventDefault();
-            const gameType = document.getElementById('admNewGameType').value;
-            const labelMap = {
-                rov: 'RoV',
-                identityv: 'Identity V',
-                genshin: 'Genshin Impact',
-                roblox: 'Roblox'
-            };
-            const title = document.getElementById('admNewGameTitle').value.trim();
-            const price = Number(document.getElementById('admNewGamePrice').value) || 0;
-            const details = document.getElementById('admNewGameDetails').value.trim();
-            const creds = document.getElementById('admNewGameCreds').value.trim();
-            const fileInp = document.getElementById('admNewGameImgFile');
-            const file = fileInp && fileInp.files && fileInp.files[0];
-
-            if (!title || price <= 0) return;
-
-            const finalizeAdd = (imgUrl) => {
-                GAME_IDS_CATALOG.unshift({
-                    id: 'gid-' + Date.now(),
-                    game: gameType,
-                    gameLabel: labelMap[gameType] || 'Game ID',
-                    title,
-                    price,
-                    badge: 'พร้อมโอนข้อมูล • สะอาด',
-                    details,
-                    images: [imgUrl || 'https://placehold.co/600x360/FFE6CF/3E200D?text=Game+ID'],
-                    credentials: creds,
-                    sold: false
-                });
-                saveStorage('meoworange_game_ids_v1', GAME_IDS_CATALOG);
-                renderAdminSubTabContent();
-                renderProductChannelContent();
-                showToast(`เพิ่มไอดีเกม "${title}" เรียบร้อยแล้วค่ะ!`);
-            };
-
-            if (file) {
-                compressImage(file, 850, 0.82, finalizeAdd);
-            } else {
-                finalizeAdd('');
-            }
         }
 
         function adminDeleteGameId(gameId) {
             GAME_IDS_CATALOG = GAME_IDS_CATALOG.filter(g => g.id !== gameId);
-            saveStorage('meoworange_game_ids_v1', GAME_IDS_CATALOG);
-            renderAdminSubTabContent();
+            saveStorage('meoworange_game_ids_prod_v1', GAME_IDS_CATALOG);
             renderProductChannelContent();
-            showToast('ลบไอดีเกมเรียบร้อยแล้วค่ะ');
+            renderAdminSubTabContent();
+        }
+
+        function adminAddNewGameId(event) {
+            event.preventDefault();
+            const [game, gameLabel] = document.getElementById('admNewGameType').value.split('|');
+            const title = document.getElementById('admNewGameTitle').value.trim();
+            const price = Number(document.getElementById('admNewGamePrice').value) || 100;
+            const details = document.getElementById('admNewGameDetails').value.trim();
+            const credentials = document.getElementById('admNewGameCreds').value.trim();
+            const imgUrlInput = document.getElementById('admNewGameImgUrl');
+            const imgUrl = (imgUrlInput && imgUrlInput.value.trim()) || 'https://placehold.co/600x360/FFE6CF/3E200D?text=' + encodeURIComponent(gameLabel);
+
+            GAME_IDS_CATALOG.unshift({
+                id: 'gid-' + Date.now(),
+                game,
+                gameLabel,
+                title,
+                price,
+                badge: 'พร้อมโอน • สะอาด',
+                details,
+                images: [imgUrl],
+                credentials,
+                sold: false
+            });
+
+            saveStorage('meoworange_game_ids_prod_v1', GAME_IDS_CATALOG);
+            renderProductChannelContent();
+            renderAdminSubTabContent();
+            showToast(`เพิ่มไอดี ${gameLabel} ลงหน้าร้านแล้วค่ะ`);
+        }
+
+        function adminToggleReadyAccountSold(accId) {
+            const acc = READY_ACCOUNTS_CATALOG.find(a => a.id === accId);
+            if (!acc) return;
+            acc.sold = !acc.sold;
+            saveStorage('meoworange_ready_accounts_prod_v1', READY_ACCOUNTS_CATALOG);
+            renderProductChannelContent();
+            renderAdminSubTabContent();
+        }
+
+        function adminDeleteReadyAccount(accId) {
+            READY_ACCOUNTS_CATALOG = READY_ACCOUNTS_CATALOG.filter(a => a.id !== accId);
+            saveStorage('meoworange_ready_accounts_prod_v1', READY_ACCOUNTS_CATALOG);
+            renderProductChannelContent();
+            renderAdminSubTabContent();
         }
 
         function adminAddNewReadyAccount(event) {
             event.preventDefault();
             const title = document.getElementById('admNewAccTitle').value.trim();
-            const price = Number(document.getElementById('admNewAccPrice').value) || 0;
+            const price = Number(document.getElementById('admNewAccPrice').value) || 50;
             const details = document.getElementById('admNewAccDetails').value.trim();
-            const creds = document.getElementById('admNewAccCreds').value.trim();
-            const fileInp = document.getElementById('admNewAccImgFile');
-            const file = fileInp && fileInp.files && fileInp.files[0];
+            const credentials = document.getElementById('admNewAccCreds').value.trim();
+            const imgUrlInput = document.getElementById('admNewAccImgUrl');
+            const imgUrl = (imgUrlInput && imgUrlInput.value.trim()) || 'https://placehold.co/600x360/FFE6CF/3E200D?text=Ready+Account';
 
-            if (!title || price <= 0) return;
+            READY_ACCOUNTS_CATALOG.unshift({
+                id: 'acc-' + Date.now(),
+                title,
+                price,
+                badge: 'แต่งแอคแล้ว • พร้อมส่ง',
+                details,
+                images: [imgUrl],
+                credentials,
+                sold: false
+            });
 
-            const finalizeAcc = (imgUrl) => {
-                READY_ACCOUNTS_CATALOG.unshift({
-                    id: 'acc-' + Date.now(),
-                    title,
-                    price,
-                    badge: 'แต่งแอคแล้ว • พร้อมส่ง',
-                    details,
-                    images: [imgUrl || 'https://placehold.co/600x360/FFE6CF/3E200D?text=Account'],
-                    credentials: creds,
-                    sold: false
-                });
-                saveStorage('meoworange_ready_accounts_v1', READY_ACCOUNTS_CATALOG);
-                renderAdminSubTabContent();
-                renderProductChannelContent();
-                showToast(`เพิ่มแอคเคาท์ "${title}" เรียบร้อยแล้วค่ะ!`);
-            };
-
-            if (file) {
-                compressImage(file, 850, 0.82, finalizeAcc);
-            } else {
-                finalizeAcc('');
-            }
-        }
-
-        function adminDeleteReadyAccount(accId) {
-            READY_ACCOUNTS_CATALOG = READY_ACCOUNTS_CATALOG.filter(a => a.id !== accId);
-            saveStorage('meoworange_ready_accounts_v1', READY_ACCOUNTS_CATALOG);
-            renderAdminSubTabContent();
+            saveStorage('meoworange_ready_accounts_prod_v1', READY_ACCOUNTS_CATALOG);
             renderProductChannelContent();
-            showToast('ลบแอคเคาท์เรียบร้อยแล้วค่ะ');
+            renderAdminSubTabContent();
+            showToast('เพิ่มแอคเคาท์เปล่าแต่งแล้วลงหน้าร้านเรียบร้อยค่ะ');
         }
 
-        function adminSavePaymentQr(event) {
-            event.preventDefault();
-            const rec = document.getElementById('admQrReceiver').value.trim();
-            const acc = document.getElementById('admQrAccount').value.trim();
-            if (rec) paymentConfig.receiverName = rec;
-            if (acc) paymentConfig.accountNumber = acc;
-            saveStorage('meoworange_payment_config_v1', paymentConfig);
-            renderPaymentQrDisplay();
-            showToast('บันทึกข้อมูลบัญชีและคิวอาร์โค้ดเรียบร้อยแล้วค่ะ');
-        }
-
-        function adminUploadQrImage(event) {
+        function adminUploadPaymentQrFile(event) {
             const file = event.target.files && event.target.files[0];
             if (!file) return;
-            compressImage(file, 700, 0.85, (dataUrl) => {
-                paymentConfig.qrImageUrl = dataUrl;
-                saveStorage('meoworange_payment_config_v1', paymentConfig);
-                renderPaymentQrDisplay();
-                renderAdminSubTabContent();
-                showToast('อัปโหลดรูปภาพคิวอาร์โค้ดเรียบร้อยแล้วค่ะ');
+            compressImage(file, 600, 0.9, (dataUrl) => {
+                document.getElementById('admQrUrlInput').value = dataUrl;
+                showToast('อัปโหลดภาพ QR Code แล้ว กดบันทึกด้านล่างได้เลยค่ะ');
             });
         }
 
-        function adminResetQrImage() {
-            paymentConfig.qrImageUrl = '';
+        function adminSavePaymentQrSettings(event) {
+            event.preventDefault();
+            paymentConfig.receiverName = document.getElementById('admQrReceiverInput').value.trim() || paymentConfig.receiverName;
+            paymentConfig.accountNumber = document.getElementById('admQrAccountInput').value.trim() || paymentConfig.accountNumber;
+            paymentConfig.qrImageUrl = document.getElementById('admQrUrlInput').value.trim();
             saveStorage('meoworange_payment_config_v1', paymentConfig);
             renderPaymentQrDisplay();
-            renderAdminSubTabContent();
-            showToast('ลบรูป QR Code ที่อัปโหลดแล้วค่ะ');
+            showToast('บันทึกคิวอาร์โค้ดรับเงินเรียบร้อยแล้วค่ะ');
         }
 
         function adminSaveStoreSettings(event) {
             event.preventDefault();
-            const sName = document.getElementById('admStoreName').value.trim();
-            const sSub = document.getElementById('admStoreSub').value.trim();
-            const sTag = document.getElementById('admStoreTagline').value.trim();
-            const fbUrl = document.getElementById('admFbUrl').value.trim();
-            const lpUrl = document.getElementById('admLpUrl').value.trim();
-
-            if (sName) storeSettings.storeName = sName;
-            if (sSub) storeSettings.subtitleEn = sSub;
-            if (sTag) storeSettings.taglineTh = sTag;
-            if (fbUrl) storeSettings.fbUrl = fbUrl;
-            if (lpUrl) storeSettings.linePersonalUrl = lpUrl;
-
+            storeSettings.storeName = document.getElementById('admStoreNameInput').value.trim() || storeSettings.storeName;
+            storeSettings.logoUrl = document.getElementById('admStoreLogoInput').value.trim() || storeSettings.logoUrl;
+            storeSettings.subtitleEn = document.getElementById('admStoreSubInput').value.trim() || storeSettings.subtitleEn;
+            storeSettings.taglineTh = document.getElementById('admStoreTagInput').value.trim() || storeSettings.taglineTh;
+            const fbUrlEl = document.getElementById('admFbUrlInput');
+            const lineUrlEl = document.getElementById('admLineUrlInput');
+            if (fbUrlEl && fbUrlEl.value.trim()) storeSettings.fbUrl = fbUrlEl.value.trim();
+            if (lineUrlEl && lineUrlEl.value.trim()) storeSettings.linePersonalUrl = lineUrlEl.value.trim();
             saveStorage('meoworange_store_settings_v1', storeSettings);
             applyStoreSettingsToDOM();
             showToast('บันทึกข้อมูลหน้าร้านเรียบร้อยแล้วค่ะ');
         }
 
-        function adminUploadStoreLogo(event) {
-            const file = event.target.files && event.target.files[0];
-            if (!file) return;
-            compressImage(file, 400, 0.85, (dataUrl) => {
-                storeSettings.logoUrl = dataUrl;
-                saveStorage('meoworange_store_settings_v1', storeSettings);
-                applyStoreSettingsToDOM();
-                showToast('อัปโหลดรูปโปรไฟล์ร้านเรียบร้อยแล้วค่ะ');
-            });
-        }
-
-        function extractYouTubeVideoId(inputStr) {
-            const raw = (inputStr || '').trim();
-            if (!raw) return '';
-            const regExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
-            const match = raw.match(regExp);
-            if (match && match[1]) return match[1];
-            return raw;
-        }
-
-        function adminAddNewPlaylistTrack(event) {
+        function adminAddPlaylistTrack(event) {
             event.preventDefault();
-            const rawId = document.getElementById('admNewTrackUrlOrId').value;
-            const titleVal = document.getElementById('admNewTrackTitle').value.trim();
-            const artistVal = document.getElementById('admNewTrackArtist').value.trim();
-            const videoId = extractYouTubeVideoId(rawId);
-
-            if (!videoId || !titleVal || !artistVal) {
-                showToast('กรุณากรอกลิงก์ YouTube ชื่อเพลง และศิลปินให้ครบนะคะ');
-                return;
-            }
+            const ytId = document.getElementById('admNewYtId').value.trim();
+            const title = document.getElementById('admNewSongTitle').value.trim();
+            const artist = document.getElementById('admNewSongArtist').value.trim();
+            if (!ytId || !title) return;
 
             PLAYLIST_TRACKS.push({
-                id: videoId,
-                title: titleVal,
-                artist: artistVal,
+                id: ytId,
+                title,
+                artist,
                 fallbackDuration: 180,
-                cover: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
+                cover: `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`
             });
-
             saveStorage('meoworange_playlist_v1', PLAYLIST_TRACKS);
             updateNowPlayingDisplay();
             renderAdminSubTabContent();
-            showToast(`เพิ่มเพลง "${titleVal}" เข้าเพลย์ลิสต์แล้วค่ะ!`);
+            showToast(`เพิ่มเพลง "${title}" ลงแผ่นเสียงแล้วค่ะ`);
         }
 
-        function adminDeletePlaylistTrack(index) {
+        function adminDeletePlaylistTrack(idx) {
             if (PLAYLIST_TRACKS.length <= 1) {
-                showToast('ต้องเหลือเพลงอย่างน้อย 1 เพลงในเพลย์ลิสต์นะคะ');
+                showToast('ต้องมีเพลงอย่างน้อย 1 เพลงในเพลย์ลิสต์ค่ะ');
                 return;
             }
-            PLAYLIST_TRACKS.splice(index, 1);
-            if (currentTrackIndex >= PLAYLIST_TRACKS.length) {
-                currentTrackIndex = 0;
-            }
+            PLAYLIST_TRACKS.splice(idx, 1);
+            if (currentTrackIndex >= PLAYLIST_TRACKS.length) currentTrackIndex = 0;
             saveStorage('meoworange_playlist_v1', PLAYLIST_TRACKS);
             updateNowPlayingDisplay();
             renderAdminSubTabContent();
-            showToast('ลบเพลงออกจากเพลย์ลิสต์แล้วค่ะ');
         }
 
-        function adminSavePlaylistTracks() {
-            PLAYLIST_TRACKS.forEach((tr, i) => {
-                const idInp = document.getElementById(`admTrId-${i}`);
-                const titleInp = document.getElementById(`admTrTitle-${i}`);
-                const artistInp = document.getElementById(`admTrArtist-${i}`);
-                if (idInp && idInp.value.trim()) {
-                    const cleanId = extractYouTubeVideoId(idInp.value);
-                    tr.id = cleanId;
-                    tr.cover = `https://i.ytimg.com/vi/${cleanId}/hqdefault.jpg`;
-                }
-                if (titleInp && titleInp.value.trim()) tr.title = titleInp.value.trim();
-                if (artistInp && artistInp.value.trim()) tr.artist = artistInp.value.trim();
-            });
-            saveStorage('meoworange_playlist_v1', PLAYLIST_TRACKS);
-            updateNowPlayingDisplay();
-            renderAdminSubTabContent();
-            showToast(`บันทึกรายการเพลงทั้ง ${PLAYLIST_TRACKS.length} เพลงเรียบร้อยแล้วค่ะ`);
-        }
-
-        function adminDeleteReview(reviewId) {
-            reviewsData = reviewsData.filter(r => r.id !== reviewId);
-            saveStorage('meoworange_princess_reviews_v1', reviewsData);
+        function adminDeleteReview(revId) {
+            reviewsData = reviewsData.filter(r => r.id !== revId);
+            saveStorage('meoworange_reviews_prod_v1', reviewsData);
             renderPrincessReviews();
-            if (currentUser && currentUser.role === 'admin' && currentAdminSubTab === 'media') {
-                renderAdminSubTabContent();
-            }
+            if (currentUser && currentUser.role === 'admin') renderAdminSubTabContent();
             showToast('ลบรีวิวเรียบร้อยแล้วค่ะ');
         }
 
         // =========================================================
-        // 12. IMAGE COMPRESSION, LIGHTBOX, CLIPBOARD & TOAST HELPERS
+        // 12. UTILITIES (IMAGE COMPRESSION, CLIPBOARD, LIGHTBOX, TOAST)
         // =========================================================
-        function compressImage(file, maxWidth, quality, callback) {
-            try {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const img = new Image();
-                    img.onload = function () {
-                        const canvas = document.createElement('canvas');
-                        let w = img.width;
-                        let h = img.height;
-                        if (w > maxWidth) {
-                            h = Math.round((h * maxWidth) / w);
-                            w = maxWidth;
+        function compressImage(file, maxDimension, quality, callback) {
+            const reader = new FileReader();
+            reader.onload = function (ev) {
+                const img = new Image();
+                img.onload = function () {
+                    let w = img.width;
+                    let h = img.height;
+                    if (w > maxDimension || h > maxDimension) {
+                        if (w > h) {
+                            h = Math.round((h * maxDimension) / w);
+                            w = maxDimension;
+                        } else {
+                            w = Math.round((w * maxDimension) / h);
+                            h = maxDimension;
                         }
-                        canvas.width = w;
-                        canvas.height = h;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, w, h);
-                        callback(canvas.toDataURL('image/jpeg', quality));
-                    };
-                    img.onerror = function () {
-                        callback(e.target.result);
-                    };
-                    img.src = e.target.result;
+                    }
+                    const canvas = document.createElement('canvas');
+                    canvas.width = w;
+                    canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, w, h);
+                    callback(canvas.toDataURL('image/jpeg', quality));
                 };
-                reader.readAsDataURL(file);
-            } catch (err) {
-                showToast('ไม่สามารถประมวลผลรูปภาพได้ค่ะ');
+                img.src = ev.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function copyContactInfo(text) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast(`คัดลอกเรียบร้อยแล้วค่ะ!`);
+                }).catch(() => fallbackCopy(text));
+            } else {
+                fallbackCopy(text);
             }
         }
 
+        function fallbackCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast(`คัดลอกเรียบร้อยแล้วค่ะ!`);
+        }
+
         function openLightbox(src) {
-            if (!src) return;
             const modal = document.getElementById('lightboxModal');
             const img = document.getElementById('lightboxImageEl');
             if (!modal || !img) return;
@@ -5118,63 +4741,44 @@
             modal.classList.remove('flex');
         }
 
-        function copyContactInfo(text) {
-            if (!text) return;
-            try {
-                const tempInput = document.createElement('textarea');
-                tempInput.value = text;
-                tempInput.style.position = 'fixed';
-                tempInput.style.left = '-9999px';
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                document.execCommand('copy');
-                document.body.removeChild(tempInput);
-                showToast('คัดลอกข้อความเรียบร้อยแล้วค่ะ!');
-            } catch (e) {
-                showToast('คัดลอกเรียบร้อยแล้วค่ะ');
-            }
-        }
-
-        function showToast(message) {
+        function showToast(msg) {
             const stack = document.getElementById('toastStack');
             if (!stack) return;
-            const toast = document.createElement('div');
-            toast.className = 'px-4 py-2.5 rounded-2xl bg-[#4A2511] text-[#FFFBF5] border border-[#FF9B54] shadow-xl font-th-sweet text-xs sm:text-sm flex items-center gap-2 transition-all duration-300';
-            toast.innerHTML = `<i class="fa-solid fa-paw text-[#FF9B54]"></i><span>${escapeHtml(message)}</span>`;
-            stack.appendChild(toast);
-
+            const item = document.createElement('div');
+            item.className = 'px-4 py-2.5 rounded-2xl bg-[#3E200D] text-[#FFFBF5] text-xs font-th-sweet shadow-xl border border-[#FF9B54] flex items-center gap-2 transition-all duration-300';
+            item.innerHTML = `<i class="fa-solid fa-paw text-[#FF9B54]"></i><span>${escapeHtml(msg)}</span>`;
+            stack.appendChild(item);
             setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateY(-6px)';
-                setTimeout(() => {
-                    if (toast.parentNode) toast.parentNode.removeChild(toast);
-                }, 300);
+                item.style.opacity = '0';
+                item.style.transform = 'translateX(14px)';
+                setTimeout(() => item.remove(), 300);
             }, 2600);
         }
 
         function escapeHtml(str) {
-            if (str === null || str === undefined) return '';
-            return String(str)
+            return String(str || '')
                 .replace(/&/g, '&amp;')
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;')
                 .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#039;');
+                .replace(/'/g, '&#39;');
         }
 
         // =========================================================
-        // 13. INITIALIZE STORE ON PAGE LOAD
+        // 13. INITIALIZATION ON PAGE LOAD
         // =========================================================
-        window.addEventListener('DOMContentLoaded', () => {
-            runCatPawLoader();
+        document.addEventListener('DOMContentLoaded', () => {
+            try { runCatPawLoader(); } catch (e) { dismissPawLoader(); }
+            setTimeout(dismissPawLoader, 2000);
+
             applyStoreSettingsToDOM();
             updateNowPlayingDisplay();
-            loadYouTubeAPI();
             renderPrincessReviews();
-            syncTopUserUI();
-            updateCartBadges();
-            updateUnreadChatBadge();
             renderProductChannelContent();
+            updateCartBadges();
+            syncTopUserUI();
+            updateUnreadChatBadge();
+            loadYouTubeAPI();
         });
     </script>
 </body>
