@@ -761,18 +761,18 @@
                         <p class="font-th-sweet text-xs text-[#7C4D30]">ตะกร้าสินค้าและการชำระเงินด้วยเครดิต</p>
                     </div>
                     <span id="cartHeaderCount" class="px-3 py-1 rounded-full bg-[#FFE6CF] text-[#4A2511] text-xs font-bold border border-[#DFC0A2]">0 items</span>
-                </div>
-
-                <div class="p-3.5 rounded-2xl bg-[#F7EBDD] border border-[#DFC0A2] flex flex-wrap items-center justify-between gap-2 text-xs">
-                    <div>
-                        <span class="font-th-sweet text-[#7C4D30]">ผู้สั่งซื้อ:</span>
-                        <b id="cartCustomerLabel" class="text-[#3E200D] ml-1">Guest</b>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span id="cartCreditBalanceLabel" class="font-th-sweet font-bold text-[#EA6A20]">0 เครดิต (= 0 บาท)</span>
-                        <button type="button" onclick="openTopupFromCart()"
-                                class="px-2.5 py-1 rounded-full bg-[#4A2511] text-white font-th-sweet text-[11px] font-bold">
-                            + เติมเครดิต
+                    <!-- Live XAMPP PHP + MySQL Backend Status Bar -->
+                    <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-[#DFC0A2] flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center gap-2 min-w-0">
+                            <span id="firebaseSyncDot" class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse shrink-0"></span>
+                            <div class="min-w-0">
+                                <div class="font-mono text-[10px] font-bold text-[#7C4D30]">XAMPP BACKEND • PHP + MySQL (meoworange_db)</div>
+                                <div id="firebaseSyncStatusText" class="font-th-sweet text-xs font-bold text-[#3E200D] truncate">กำลังเชื่อมต่อ XAMPP (api.php)...</div>
+                            </div>
+                        </div>
+                        <button type="button" onclick="window.forcePushAllToFirebaseCloud && window.forcePushAllToFirebaseCloud()"
+                                class="px-3 py-1.5 rounded-xl bg-[#4A2511] hover:bg-[#EA6A20] text-[#FFFBF5] font-th-sweet text-xs font-bold transition shrink-0">
+                            <i class="fa-solid fa-database mr-1 text-[#FF9B54]"></i>บันทึกลง MySQL ทันที
                         </button>
                     </div>
                 </div>
@@ -1266,6 +1266,21 @@
                         <p class="font-th-sweet text-xs text-[#7C4D30]">จัดการอนุมัติสลิปเครดิต ออเดอร์ สินค้า คิวอาร์โค้ด ข้อมูลร้าน เพลง รีวิว และแชตลูกค้า</p>
                     </div>
 
+                    <!-- Live Firebase Cloud Sync Status Bar -->
+                    <div class="p-3 rounded-2xl bg-[#FFFDF9] border border-[#DFC0A2] flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center gap-2 min-w-0">
+                            <span id="firebaseSyncDot" class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse shrink-0"></span>
+                            <div class="min-w-0">
+                                <div class="font-mono text-[10px] font-bold text-[#7C4D30]">FIREBASE CLOUD • review-f5c6b</div>
+                                <div id="firebaseSyncStatusText" class="font-th-sweet text-xs font-bold text-[#3E200D] truncate">กำลังเชื่อมต่อ Firebase...</div>
+                            </div>
+                        </div>
+                        <button type="button" onclick="window.forcePushAllToFirebaseCloud && window.forcePushAllToFirebaseCloud()"
+                                class="px-3 py-1.5 rounded-xl bg-[#4A2511] hover:bg-[#EA6A20] text-[#FFFBF5] font-th-sweet text-xs font-bold transition shrink-0">
+                            <i class="fa-solid fa-cloud-arrow-up mr-1 text-[#FF9B54]"></i>ซิงค์ขึ้น Firebase ทันที
+                        </button>
+                    </div>
+
                     <div class="flex flex-wrap gap-1.5">
                         <button type="button" id="admTab-topups" onclick="switchAdminSubTab('topups')" class="adm-subtab-btn px-3 py-1.5 rounded-full bg-[#4A2511] text-[#FFFBF5] font-th-sweet text-xs font-bold transition">สลิป &amp; เครดิต</button>
                         <button type="button" id="admTab-orders" onclick="switchAdminSubTab('orders')" class="adm-subtab-btn px-3 py-1.5 rounded-full bg-[#F5E6D3] text-[#4A2511] border border-[#DFC0A2] font-th-sweet text-xs font-bold transition">ออเดอร์ลูกค้า</button>
@@ -1521,89 +1536,167 @@
     <div id="toastStack" class="fixed top-16 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
     <!-- =========================================================
-         FIREBASE SDK CLOUD SYNC BRIDGE (review-f5c6b)
+         XAMPP BACKEND SYNC BRIDGE (PHP + MySQL via api.php)
          ========================================================= -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    <script>
+        (function () {
+            // หากเปิดผ่าน http://localhost/meoworange/ จะเรียก api.php ในโฟลเดอร์เดียวกันอัตโนมัติ
+            const XAMPP_API_URL = (window.location.protocol === 'file:')
+                ? 'http://localhost/meoworange/api.php'
+                : 'api.php';
 
-        const userFirebaseConfig = {
-            apiKey: "AIzaSyAOf6RdW2hVLDvbHQ0d6Rf9EuZ9ZvWeQz0",
-            authDomain: "review-f5c6b.firebaseapp.com",
-            projectId: "review-f5c6b",
-            storageBucket: "review-f5c6b.firebasestorage.app",
-            messagingSenderId: "739097397850",
-            appId: "1:739097397850:web:f9109875ed1d508134e663",
-            measurementId: "G-P15ZJ5K7E1"
-        };
+            let xamppReady = false;
+            let isApplyingRemote = false;
+            let isSyncingNow = false;
+            let lastRemoteFingerprint = '';
+            const pendingBackendWrites = new Map();
 
-        const activeFirebaseConfig = (typeof __firebase_config !== 'undefined' && __firebase_config)
-            ? JSON.parse(__firebase_config)
-            : userFirebaseConfig;
+            window.firebaseSyncState = {
+                status: 'connecting',
+                text: 'กำลังเชื่อมต่อหลังบ้าน XAMPP (api.php)...'
+            };
 
-        const cloudAppId = typeof __app_id !== 'undefined' ? __app_id : 'meoworange-boutique';
-
-        const fbApp = initializeApp(activeFirebaseConfig);
-        const fbAuth = getAuth(fbApp);
-        const fbDb = getFirestore(fbApp);
-
-        let fbReady = false;
-        let isApplyingRemote = false;
-
-        async function initFirebaseCloudSync() {
-            try {
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(fbAuth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(fbAuth);
+            window.refreshFirebaseSyncBadge = function () {
+                const dot = document.getElementById('firebaseSyncDot');
+                const txt = document.getElementById('firebaseSyncStatusText');
+                const st = window.firebaseSyncState;
+                if (txt) txt.textContent = st.text;
+                if (dot) {
+                    if (st.status === 'connected') {
+                        dot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0';
+                    } else if (st.status === 'error') {
+                        dot.className = 'w-2.5 h-2.5 rounded-full bg-red-600 shrink-0';
+                    } else {
+                        dot.className = 'w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse shrink-0';
+                    }
                 }
-                if (!fbAuth.currentUser) return;
-                fbReady = true;
+            };
 
-                const stateDocRef = doc(fbDb, 'artifacts', cloudAppId, 'public', 'data', 'store_state', 'main');
-                onSnapshot(stateDocRef, (snap) => {
-                    if (!snap.exists()) {
-                        pushAllLocalToCloud();
+            function setBackendBadge(status, text) {
+                window.firebaseSyncState = { status, text };
+                window.refreshFirebaseSyncBadge();
+            }
+
+            async function flushPendingXamppWrites() {
+                if (!xamppReady || pendingBackendWrites.size === 0) return;
+                const entries = Array.from(pendingBackendWrites.entries());
+                pendingBackendWrites.clear();
+
+                isSyncingNow = true;
+                try {
+                    const batchObj = {};
+                    entries.forEach(([k, serializedVal]) => {
+                        batchObj[k] = serializedVal;
+                    });
+
+                    const response = await fetch(`${XAMPP_API_URL}?action=save_batch`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ items: batchObj })
+                    });
+                    const resJson = await response.json();
+
+                    if (!response.ok || !resJson.ok) {
+                        throw new Error(resJson.error || `HTTP ${response.status}`);
+                    }
+
+                    const timeStr = new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                    setBackendBadge('connected', `บันทึกลง MySQL (XAMPP) สำเร็จ (${timeStr})`);
+                } catch (err) {
+                    console.error('XAMPP write error:', err);
+                    setBackendBadge('error', `บันทึกไม่สำเร็จ: ${err.message}`);
+                    if (typeof window.showToast === 'function') {
+                        window.showToast(`XAMPP แจ้งเตือน: ${err.message}`);
+                    }
+                } finally {
+                    isSyncingNow = false;
+                }
+            }
+
+            async function pullFromXamppDatabase(isInitialLoad) {
+                if (isSyncingNow || pendingBackendWrites.size > 0) return;
+
+                try {
+                    const response = await fetch(`${XAMPP_API_URL}?action=load_all&_t=${Date.now()}`);
+                    const resJson = await response.json();
+
+                    if (!response.ok || !resJson.ok) {
+                        throw new Error(resJson.error || `HTTP ${response.status}`);
+                    }
+
+                    xamppReady = true;
+                    const serverData = resJson.data || {};
+                    const serverKeys = Object.keys(serverData);
+
+                    if (serverKeys.length === 0) {
+                        // หากฐานข้อมูลบน XAMPP ยังว่างอยู่ ให้ส่งข้อมูลเริ่มต้นขึ้นไปบันทึกทันที
+                        if (isInitialLoad && typeof window.forcePushAllToFirebaseCloud === 'function') {
+                            await window.forcePushAllToFirebaseCloud(true);
+                        }
+                        const timeStr = new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                        setBackendBadge('connected', `เชื่อมต่อ XAMPP MySQL สำเร็จ (${timeStr})`);
                         return;
                     }
-                    const remoteData = snap.data();
-                    if (!remoteData || typeof window.applyCloudStateSnapshot !== 'function') return;
-                    isApplyingRemote = true;
-                    try {
-                        window.applyCloudStateSnapshot(remoteData);
-                    } finally {
-                        isApplyingRemote = false;
+
+                    const fingerprint = JSON.stringify(serverData);
+                    if (fingerprint !== lastRemoteFingerprint) {
+                        lastRemoteFingerprint = fingerprint;
+                        if (typeof window.applyCloudStateSnapshot === 'function') {
+                            isApplyingRemote = true;
+                            try {
+                                window.applyCloudStateSnapshot(serverData);
+                            } finally {
+                                isApplyingRemote = false;
+                            }
+                        }
                     }
-                }, (err) => {
-                    console.warn('Cloud sync listener warning:', err);
-                });
-            } catch (err) {
-                console.warn('Cloud sync init fallback:', err);
+
+                    const timeStr = new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                    setBackendBadge('connected', `เชื่อมต่อ XAMPP MySQL สำเร็จ (${timeStr})`);
+                } catch (err) {
+                    console.error('XAMPP load error:', err);
+                    const hint = window.location.protocol === 'file:'
+                        ? 'กรุณาเปิดผ่าน http://localhost/meoworange/ และกด Start Apache + MySQL ใน XAMPP'
+                        : 'กรุณากด Start Apache และ MySQL ใน XAMPP Control Panel';
+                    setBackendBadge('error', `เชื่อมต่อ XAMPP ไม่ได้ (${hint})`);
+                }
             }
-        }
 
-        function pushAllLocalToCloud() {
-            if (!fbReady || !fbAuth.currentUser || isApplyingRemote) return;
-            if (typeof window.collectCloudStateSnapshot !== 'function') return;
-            const snapshotObj = window.collectCloudStateSnapshot();
-            const stateDocRef = doc(fbDb, 'artifacts', cloudAppId, 'public', 'data', 'store_state', 'main');
-            setDoc(stateDocRef, {
-                ...snapshotObj,
-                updatedAt: Date.now()
-            }, { merge: true }).catch(() => {});
-        }
+            window.forcePushAllToFirebaseCloud = async function (silent = false) {
+                if (typeof window.collectCloudStateSnapshot !== 'function') return;
+                const snapshotObj = window.collectCloudStateSnapshot();
+                Object.entries(snapshotObj).forEach(([k, serializedVal]) => {
+                    pendingBackendWrites.set(k, serializedVal);
+                });
 
-        window.syncStateToFirebaseCloud = function (key, value) {
-            if (!fbReady || !fbAuth.currentUser || isApplyingRemote) return;
-            const stateDocRef = doc(fbDb, 'artifacts', cloudAppId, 'public', 'data', 'store_state', 'main');
-            setDoc(stateDocRef, {
-                [key]: JSON.stringify(value),
-                updatedAt: Date.now()
-            }, { merge: true }).catch(() => {});
-        };
+                if (!xamppReady) {
+                    await pullFromXamppDatabase(false);
+                }
+                await flushPendingXamppWrites();
 
-        initFirebaseCloudSync();
+                if (!silent && window.firebaseSyncState.status === 'connected' && typeof window.showToast === 'function') {
+                    window.showToast('ซิงค์ข้อมูลทั้งหมดลง MySQL (XAMPP) เรียบร้อยแล้วค่ะ!');
+                }
+            };
+
+            window.syncStateToFirebaseCloud = function (key, value) {
+                if (isApplyingRemote) return;
+                const serialized = JSON.stringify(value);
+                pendingBackendWrites.set(key, serialized);
+                if (!xamppReady) return;
+                flushPendingXamppWrites();
+            };
+
+            // เริ่มต้นเชื่อมต่อหลังบ้าน XAMPP และดึงข้อมูลอัปเดตอัตโนมัติทุก 4 วินาที
+            window.addEventListener('DOMContentLoaded', () => {
+                pullFromXamppDatabase(true).then(() => {
+                    flushPendingXamppWrites();
+                });
+                setInterval(() => {
+                    pullFromXamppDatabase(false);
+                }, 4000);
+            });
+        })();
     </script>
 
     <!-- =========================================================
@@ -1691,7 +1784,12 @@
         function saveStorage(key, value) {
             try {
                 localStorage.setItem(key, JSON.stringify(value));
-            } catch (e) {}
+            } catch (e) {
+                console.warn('Storage quota warning:', e);
+                if (typeof showToast === 'function') {
+                    showToast('พื้นที่จัดเก็บในเครื่องใกล้เต็ม แนะนำลดจำนวนรูปภาพต่อรายการนะคะ');
+                }
+            }
             if (typeof window.syncStateToFirebaseCloud === 'function') {
                 window.syncStateToFirebaseCloud(key, value);
             }
@@ -2461,6 +2559,239 @@
         function renderProductChannelContent() {
             const container = document.getElementById('productChannelContent');
             if (!container) return;
+
+            // ---------------------------------------------------------
+            // CHANNEL 1: GMAIL CATALOG (เลือกซื้อจีเมลรายบัญชี)
+            // ---------------------------------------------------------
+            if (currentProductChannel === 'gmail') {
+                const filterTabs = [
+                    { key: 'all', label: 'ทั้งหมด' },
+                    { key: 'no-warranty', label: 'ไม่มีประกัน' },
+                    { key: 'warranty', label: 'มีประกัน' }
+                ];
+
+                const filterBarHtml = `
+                    <div class="flex flex-wrap items-center gap-1.5 p-2 rounded-2xl bg-[#F7EBDD] border border-[#DFC0A2]">
+                        <span class="font-th-sweet text-xs font-bold text-[#3E200D] px-2">ตัวกรอง:</span>
+                        ${filterTabs.map(ft => {
+                            const active = currentGmailSubFilter === ft.key;
+                            return `
+                                <button type="button" onclick="setGmailSubFilter('${ft.key}')"
+                                        class="px-3 py-1 rounded-full font-th-sweet text-xs font-bold transition ${active ? 'bg-[#4A2511] text-white shadow' : 'bg-[#FFFBF5] text-[#4A2511] border border-[#DFC0A2] hover:bg-[#FFE6CF]'}">
+                                    ${ft.label}
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+
+                const filteredCats = GMAIL_CATALOG.filter(cat => {
+                    if (currentGmailSubFilter === 'all') return true;
+                    return cat.category === currentGmailSubFilter;
+                });
+
+                if (filteredCats.length === 0) {
+                    container.innerHTML = `
+                        ${filterBarHtml}
+                        <div class="text-center py-8 px-4 rounded-3xl bg-[#F7EBDD] border border-[#DFC0A2]">
+                            <p class="font-th-sweet text-sm text-[#7C4D30]">ยังไม่มีรายการ Gmail ในหมวดนี้ค่ะ</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const cardsHtml = filteredCats.map(cat => {
+                    const accounts = cat.accounts || [];
+                    const availableCount = accounts.filter(a => !a.sold).length;
+                    const badgeLabel = cat.badgeTh || cat.badgeEn || 'พร้อมส่ง';
+                    const titleLabel = cat.titleTh || cat.titleEn || 'บัญชี Gmail';
+
+                    const accountRowsHtml = accounts.length === 0
+                        ? `<div class="p-3 rounded-2xl bg-[#F7EBDD] text-center font-th-sweet text-xs text-[#7C4D30]">ยังไม่มีรายชื่อเมลในกลุ่มนี้ค่ะ</div>`
+                        : accounts.map((acc, aIdx) => {
+                            const isSold = Boolean(acc.sold);
+                            const inCart = cartItems.some(c => c.type === 'gmail' && c.catId === cat.id && c.accIdx === aIdx);
+                            return `
+                                <div class="p-2.5 sm:p-3 rounded-2xl border ${isSold ? 'bg-red-50/70 border-red-200 opacity-75' : 'bg-[#F7EBDD] border-[#E8D4C0]'} flex flex-wrap items-center justify-between gap-2">
+                                    <div class="min-w-0 flex-1">
+                                        <div class="font-mono text-xs sm:text-sm font-bold text-[#3E200D] truncate">
+                                            <i class="fa-solid fa-envelope text-[#EA6A20] mr-1.5"></i>${escapeHtml(acc.email)}
+                                        </div>
+                                        ${acc.recovery ? `<div class="font-th-sweet text-[10px] text-[#7C4D30] mt-0.5">มีเมลสำรอง / หมายเหตุพร้อมส่ง</div>` : ''}
+                                    </div>
+                                    ${isSold
+                                        ? `<span class="px-3 py-1 rounded-xl bg-red-100 text-red-700 border border-red-300 font-th-sweet text-xs font-bold shrink-0">ขายแล้ว</span>`
+                                        : `<button type="button" onclick="addGmailAccountToCart('${cat.id}', ${aIdx})"
+                                                   class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#FF9B54] to-[#EA6A20] hover:from-[#EA6A20] hover:to-[#4A2511] text-white font-th-sweet text-xs font-bold shadow transition shrink-0">
+                                               ${inCart ? 'อยู่ในตะกร้าแล้ว' : 'เลือกเมลนี้'}
+                                           </button>`
+                                    }
+                                </div>
+                            `;
+                        }).join('');
+
+                    return `
+                        <article class="rounded-3xl bg-[#FFFDF9] border-2 border-[#DFC0A2] p-4 sm:p-5 space-y-3 shadow-sm">
+                            <div class="flex flex-wrap items-start justify-between gap-2">
+                                <div>
+                                    <div class="flex flex-wrap items-center gap-1.5">
+                                        <span class="px-2.5 py-0.5 rounded-full bg-[#FFE6CF] text-[#C85614] font-th-sweet text-[11px] font-bold">
+                                            ${escapeHtml(badgeLabel)}
+                                        </span>
+                                        <span class="px-2.5 py-0.5 rounded-full ${availableCount > 0 ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-700'} font-th-sweet text-[11px] font-bold">
+                                            ว่าง ${availableCount} / ${accounts.length} เมล
+                                        </span>
+                                    </div>
+                                    <h3 class="font-th-sweet text-base sm:text-lg font-bold text-[#3E200D] mt-1">${escapeHtml(titleLabel)}</h3>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-en-magic text-2xl text-[#EA6A20]">${cat.price} ฿</div>
+                                    <div class="font-th-sweet text-[11px] text-[#7C4D30]">(${cat.price} เครดิต / เมล)</div>
+                                </div>
+                            </div>
+
+                            ${cat.descTh ? `
+                                <p class="font-th-sweet text-xs text-[#6E4730] bg-[#FFF5EB] px-3 py-2 rounded-2xl border border-[#EFE0CE]">
+                                    ${escapeHtml(cat.descTh)}
+                                </p>
+                            ` : ''}
+
+                            <div class="space-y-2">
+                                <div class="font-th-sweet text-xs font-bold text-[#3E200D]">เลือกรายชื่อ Gmail ที่ต้องการ:</div>
+                                ${accountRowsHtml}
+                            </div>
+                        </article>
+                    `;
+                }).join('');
+
+                container.innerHTML = `
+                    ${filterBarHtml}
+                    <div class="space-y-4">${cardsHtml}</div>
+                `;
+                return;
+            }
+
+            // ---------------------------------------------------------
+            // CHANNEL 2: ID GAME CATALOG (ไอดีเกมต่าง ๆ)
+            // ---------------------------------------------------------
+            if (currentProductChannel === 'idgame') {
+                const defaultGameTabs = [
+                    { key: 'all', label: 'ทั้งหมด' },
+                    { key: 'rov', label: 'RoV' },
+                    { key: 'identityv', label: 'Identity V' },
+                    { key: 'genshin', label: 'Genshin Impact' },
+                    { key: 'roblox', label: 'Roblox' }
+                ];
+
+                // Include custom game categories if added by Admin
+                const dynamicTabs = [...defaultGameTabs];
+                GAME_IDS_CATALOG.forEach(g => {
+                    const gKey = g.game === 'other' ? `custom:${g.gameLabel}` : g.game;
+                    if (gKey && !dynamicTabs.some(t => t.key === gKey)) {
+                        dynamicTabs.push({ key: gKey, label: g.gameLabel || gKey });
+                    }
+                });
+
+                const gameFilterHtml = `
+                    <div class="flex flex-wrap items-center gap-1.5 p-2 rounded-2xl bg-[#F7EBDD] border border-[#DFC0A2]">
+                        <span class="font-th-sweet text-xs font-bold text-[#3E200D] px-2">หมวดเกม:</span>
+                        ${dynamicTabs.map(gt => {
+                            const active = currentGameSubFilter === gt.key;
+                            return `
+                                <button type="button" onclick="setGameSubFilter('${escapeHtml(gt.key)}')"
+                                        class="px-3 py-1 rounded-full font-th-sweet text-xs font-bold transition ${active ? 'bg-[#4A2511] text-white shadow' : 'bg-[#FFFBF5] text-[#4A2511] border border-[#DFC0A2] hover:bg-[#FFE6CF]'}">
+                                    ${escapeHtml(gt.label)}
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+
+                const filteredGames = GAME_IDS_CATALOG.filter(g => {
+                    if (currentGameSubFilter === 'all') return true;
+                    const gKey = g.game === 'other' ? `custom:${g.gameLabel}` : g.game;
+                    return gKey === currentGameSubFilter;
+                });
+
+                if (filteredGames.length === 0) {
+                    container.innerHTML = `
+                        ${gameFilterHtml}
+                        <div class="text-center py-8 px-4 rounded-3xl bg-[#F7EBDD] border border-[#DFC0A2]">
+                            <p class="font-th-sweet text-sm text-[#7C4D30]">ยังไม่มีรายการไอดีเกมในหมวดนี้ค่ะ</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const gameCardsHtml = filteredGames.map(gid => {
+                    const isSold = Boolean(gid.sold);
+                    const inCart = cartItems.some(c => c.type === 'idgame' && c.itemId === gid.id);
+                    const allImgs = (gid.images && gid.images.length > 0)
+                        ? gid.images
+                        : ['https://placehold.co/600x360/FFE6CF/3E200D?text=ID+Game'];
+                    const mainImg = allImgs[0];
+
+                    const extraThumbsHtml = allImgs.length > 1
+                        ? `
+                            <div class="flex items-center gap-1.5 px-3 pt-2 overflow-x-auto">
+                                ${allImgs.map((src, idx) => `
+                                    <img src="${src}" onclick="openLightbox('${src}')" alt="รูปไอดี ${idx + 1}"
+                                         class="w-11 h-11 rounded-xl object-cover border border-[#DFC0A2] hover:border-[#EA6A20] cursor-zoom-in shrink-0 transition">
+                                `).join('')}
+                            </div>
+                        `
+                        : '';
+
+                    return `
+                        <article class="rounded-3xl bg-[#FFFDF9] border-2 ${isSold ? 'border-red-300 opacity-85' : 'border-[#DFC0A2] hover:border-[#EA6A20]'} overflow-hidden flex flex-col justify-between shadow-sm transition">
+                            <div>
+                                <div onclick="openLightbox('${mainImg}')" class="relative aspect-[16/9] bg-[#3E200D] cursor-zoom-in overflow-hidden group">
+                                    <img src="${mainImg}" alt="${escapeHtml(gid.title)}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                                    <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-[#4A2511]/90 text-[#FFCC8F] font-th-sweet text-[11px] font-bold border border-[#FF9B54]/40">
+                                        ${escapeHtml(gid.gameLabel || 'Game ID')}
+                                    </span>
+                                    ${isSold
+                                        ? `<span class="absolute top-2.5 right-2.5 px-3 py-0.5 rounded-full bg-red-600 text-white font-th-sweet text-xs font-bold shadow">ขายแล้ว</span>`
+                                        : `<span class="absolute bottom-2 right-2 px-2.5 py-0.5 rounded-full bg-[#3E200D]/80 text-white text-[10px]"><i class="fa-solid fa-magnifying-glass mr-1"></i>ดูรูปไอดี (${allImgs.length})</span>`
+                                    }
+                                </div>
+                                ${extraThumbsHtml}
+                                <div class="p-4 space-y-2">
+                                    ${gid.badge ? `
+                                        <span class="inline-block px-2.5 py-0.5 rounded-full bg-[#FFE6CF] text-[#C85614] font-th-sweet text-[11px] font-bold">
+                                            ${escapeHtml(gid.badge)}
+                                        </span>
+                                    ` : ''}
+                                    <h3 class="font-th-sweet text-base font-bold text-[#3E200D]">${escapeHtml(gid.title)}</h3>
+                                    <p class="font-th-sweet text-xs text-[#6E4730] bg-[#F7EBDD] p-3 rounded-2xl border border-[#E8D4C0] leading-relaxed whitespace-pre-line">
+                                        ${escapeHtml(gid.details)}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="px-4 pb-4 pt-2 border-t border-[#E8D4C0] flex items-center justify-between gap-2">
+                                <div>
+                                    <span class="font-en-magic text-2xl text-[#3E200D]">${gid.price} ฿</span>
+                                    <span class="font-th-sweet text-xs text-[#85583F]">(${gid.price} เครดิต)</span>
+                                </div>
+                                ${isSold
+                                    ? `<button type="button" disabled class="px-4 py-2 rounded-2xl bg-red-100 text-red-700 border border-red-300 font-th-sweet text-xs font-bold cursor-not-allowed">หมดแล้ว</button>`
+                                    : `<button type="button" onclick="addGameIdToCart('${gid.id}')"
+                                               class="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-[#FF9B54] to-[#EA6A20] hover:from-[#EA6A20] hover:to-[#4A2511] text-white font-th-sweet text-xs font-bold shadow transition">
+                                           ${inCart ? 'อยู่ในตะกร้าแล้ว' : 'เพิ่มลงตะกร้า'}
+                                       </button>`
+                                }
+                            </div>
+                        </article>
+                    `;
+                }).join('');
+
+                container.innerHTML = `
+                    ${gameFilterHtml}
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">${gameCardsHtml}</div>
+                `;
+                return;
+            }
 
             // ---------------------------------------------------------
             // CHANNEL 3: ROBUX RATE 3 (ส่งโรบัคเรท 3 - ปัดเศษลง & ไม่รับแบบเกมพาส)
@@ -3973,6 +4304,9 @@
             const adminPanel = document.getElementById('adminMasterPanel');
             if (currentUser.isAdmin) {
                 if (adminPanel) adminPanel.classList.remove('hidden');
+                if (typeof window.refreshFirebaseSyncBadge === 'function') {
+                    window.refreshFirebaseSyncBadge();
+                }
                 renderAdminSubTabContent();
             } else {
                 if (adminPanel) adminPanel.classList.add('hidden');
@@ -4793,7 +5127,7 @@
 
             let processed = 0;
             sliceFiles.forEach(file => {
-                compressImage(file, 900, 0.84, (dataUrl) => {
+                compressImage(file, 640, 0.70, (dataUrl) => {
                     adminPendingGameImages.push(dataUrl);
                     processed += 1;
                     if (processed === sliceFiles.length) {
@@ -4884,7 +5218,7 @@
 
             let processed = 0;
             sliceFiles.forEach(file => {
-                compressImage(file, 900, 0.84, (dataUrl) => {
+                compressImage(file, 640, 0.70, (dataUrl) => {
                     adminPendingAccountImages.push(dataUrl);
                     processed += 1;
                     if (processed === sliceFiles.length) {
